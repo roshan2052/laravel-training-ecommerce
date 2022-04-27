@@ -3,15 +3,22 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <div class="card card-info">
-                <div class="card-header">
-                    <h3 class="card-title">Horizontal Form</h3>
-                </div>
-                <!-- /.card-header -->
-                <!-- form start -->
-            {{ Form::model($data['row'], ['route' => ['test.update', $data['row']->id],'method' => 'put']) }}
+            <div class="card card">
 
-            @include('backend.test.includes.main_form')
+            <div class="card-header">
+                <h3 class="card-title">Edit {{ $panel }}</h3>
+                <a class="btn btn-info btn-md float-right ml-1" href="{{ route($base_route.'index') }}">
+                    <i class="fas fa-list"></i> List
+                </a>
+                <a class="btn btn-success btn-md float-right" href="{{ route($base_route.'create') }}">
+                    <i class="fas fa-pencil-alt"></i>
+                    Create
+                </a>
+            </div>
+
+            {{ Form::model($data['row'], ['route' => [$base_route.'update', $data['row']->id],'method' => 'put']) }}
+
+            @include($view_path.'includes.main_form')
 
             {!! Form::close() !!}
             </div>

@@ -40,19 +40,19 @@
                                 <td>{{ $row->created_at->diffForHumans() }}</td>
                                 <td style="display:flex">
                                     <a class="btn btn-primary btn-sm mr-2"
-                                        href="{{ route('test.show', ['id' => $row->id]) }}">
+                                        href="{{ route($base_route.'show', ['id' => $row->id]) }}">
                                         <i class="fas fa-folder">
                                         </i>
                                         View
                                     </a>
                                     <a class="btn btn-info btn-sm mr-2"
-                                        href="{{ route('test.edit', ['id' => $row->id]) }}">
+                                        href="{{ route($base_route.'edit', ['id' => $row->id]) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Edit
                                     </a>
 
-                                    <form action="{{ route('test.destroy',['id' => $row->id]) }}" method="post">
+                                    <form action="{{ route($base_route.'destroy',['id' => $row->id]) }}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger btn-sm delete-confirm" type="button">

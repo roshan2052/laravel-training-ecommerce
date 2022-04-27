@@ -13,6 +13,16 @@
             @include('backend.includes.validation_error_message',['fieldname' => 'email'])
         </div>
     </div>
+    <div class="form-group row mb-3">
+        {{ Form::label('image_field', 'Image', ['class' => 'col-3 col-form-label']) }}
+        <div class="col-9">
+            {{ Form::file('image_field', null, ['class' => 'form-control', 'id' => 'image_field']) }}
+            @include('backend.includes.validation_error_message',['fieldname' => 'image_field'])
+            @if(isset($data['row']->image))
+                <img src="{{ asset('images/test/'.$data['row']->image) }}" alt="image" class="img-fluid" width="150px">
+            @endif
+        </div>
+    </div>
 </div>
 <!-- /.card-body -->
 <div class="card-footer">

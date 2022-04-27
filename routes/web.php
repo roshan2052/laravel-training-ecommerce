@@ -18,13 +18,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('test', [TestController::class, 'index'])->name('test.index');
-Route::get('test/create', [TestController::class, 'create'])->name('test.create');
-Route::post('test', [TestController::class, 'store'])->name('test.store');
-Route::get('test/{id}/show', [TestController::class, 'show'])->name('test.show');
-Route::get('test/{id}/edit', [TestController::class, 'edit'])->name('test.edit');
-Route::put('test/{id}/update', [TestController::class, 'update'])->name('test.update');
-Route::delete('test/{id}/destroy', [TestController::class, 'destroy'])->name('test.destroy');
+
+// Route::middleware(['web','auth'])->group(function () {
+
+    // Test
+    Route::get('test', [TestController::class, 'index'])->name('test.index');
+    Route::get('test/create', [TestController::class, 'create'])->name('test.create');
+    Route::post('test', [TestController::class, 'store'])->name('test.store');
+    Route::get('test/{id}/show', [TestController::class, 'show'])->name('test.show');
+    Route::get('test/{id}/edit', [TestController::class, 'edit'])->name('test.edit');
+    Route::put('test/{id}/update', [TestController::class, 'update'])->name('test.update');
+    Route::delete('test/{id}/destroy', [TestController::class, 'destroy'])->name('test.destroy');
+// });
 
 Auth::routes();
 

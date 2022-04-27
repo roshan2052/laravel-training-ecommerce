@@ -13,11 +13,11 @@
         <div class="col-12">
             <div class="card card">
                 <div class="card-header">
-                    <h3 class="card-title">Show Attribute</h3>
-                    <a class="btn btn-info btn-md float-right ml-1" href="{{ route('test.index') }}">
+                    <h3 class="card-title">Show {{ $panel }}</h3>
+                    <a class="btn btn-info btn-md float-right ml-1" href="{{ route($base_route.'index') }}">
                         <i class="fas fa-list"></i> List
                     </a>
-                    <a class="btn btn-success btn-md float-right" href="{{ route('test.create') }}">
+                    <a class="btn btn-success btn-md float-right" href="{{ route($base_route.'create') }}">
                         <i class="fas fa-pencil-alt"></i>
                         Create
                     </a>
@@ -30,6 +30,16 @@
                     <tr>
                         <th>Email</th>
                         <td>{{ $data['row']->email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Image</th>
+                        <td>
+                            @if ($data['row']->image)
+                                <img src="{{ asset('images/test/'.$data['row']->image) }}" alt="image" class="img-fluid">
+                            @else
+                                {{ 'Image Not Found' }}
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <th>Created At</th>

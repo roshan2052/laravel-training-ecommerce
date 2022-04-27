@@ -26,7 +26,9 @@ class TestRequest extends FormRequest
         return [
             'name' => 'required|string|max:191',
             'email' => 'required|unique:tests',
+            'image_field' => 'nullable|image',
         ];
+
     }
 
     public function messages()

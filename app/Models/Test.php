@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Test extends Model
 {
-    protected $fillable = ['name','email'];
+    protected $fillable = ['name','email','image'];
 
     use HasFactory;
 }
