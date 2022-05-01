@@ -12,6 +12,7 @@ class BackendBaseController extends Controller
             $view->with('panel',$this->panel);
             $view->with('view_path',$this->view_path);
             $view->with('base_route',$this->base_route);
+            $view->with('img_path',$this->img_path);
         });
         return $viewPath;
     }
@@ -19,11 +20,17 @@ class BackendBaseController extends Controller
     protected function uploadImage(Request $request){
         $image = $request->file('image_field');
         $image_name = time().'_'.$image->getClientOriginalName();
-        $image->move('images/test', $image_name);
+        $image->move($this->img_path, $image_name);
         return $image_name;
     }
 
 
+    protected function deleteImage($image_name){
+        $image = $this->img_path. $image_name;
+        if(is_file( $image)){
+            unlink($image);
+        }
+    }
 
 
 }

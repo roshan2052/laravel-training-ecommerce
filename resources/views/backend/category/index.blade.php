@@ -1,4 +1,6 @@
-@extends('backend.layouts.master')
+@extends('backend.layouts.master',['page' => 'List'])
+
+@section('title',$panel)
 
 @section('css')
     <!-- DataTables -->
@@ -16,7 +18,11 @@
                 @include('backend.includes.flash_message')
 
                 <div class="card-header">
-                    <h3 class="card-title">DataTable with default features</h3>
+                    <h3 class="card-title">List {{ $panel }}</h3>
+                    <a class="btn btn-success btn-md float-right" href="{{ route($base_route.'create') }}">
+                        <i class="fas fa-pencil-alt"></i>
+                        Create
+                    </a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -25,7 +31,8 @@
                             <tr>
                                 <th>S.N</th>
                                 <th>Name</th>
-                                <th>Email</th>
+                                <th>Slug</th>
+                                <th>Image</th>
                                 <th>Created Date</th>
                                 <th>Action</th>
                             </tr>
@@ -36,8 +43,15 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $row->name }}</td>
-                                <td>{{ $row->email }}</td>
-                                <td>{{ $row->created_at->diffForHumans() }}</td>
+                                <td>{{ $row->slug }}</td>
+                                <td>
+                                    @if($row->image)
+                                        <img src="{{ asset($img_path.$row->image) }}" alt="image" class="img-fluid" width="100px" height="100px">
+                                    @else
+                                        {{ 'Image Not Available' }}
+                                    @endif
+                                    </td>
+                                <td>{{ $row->created_at }}</td>
                                 <td style="display:flex">
                                     <a class="btn btn-primary btn-sm mr-2"
                                         href="{{ route($base_route.'show', ['id' => $row->id]) }}">

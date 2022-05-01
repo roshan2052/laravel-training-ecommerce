@@ -1,4 +1,6 @@
-@extends('backend.layouts.master')
+@extends('backend.layouts.master',['page' => 'show'])
+
+@section('title','show'.' '.$panel)
 
 @section('css')
     <!-- DataTables -->
@@ -28,8 +30,12 @@
                         <td>{{ $data['row']->name }}</td>
                     </tr>
                     <tr>
-                        <th>Email</th>
-                        <td>{{ $data['row']->email }}</td>
+                        <th>Slug</th>
+                        <td>{{ $data['row']->slug }}</td>
+                    </tr>
+                    <tr>
+                        <th>Rabk</th>
+                        <td>{{ $data['row']->rank }}</td>
                     </tr>
                     <tr>
                         <th>Image</th>
@@ -40,6 +46,22 @@
                                 {{ 'Image Not Found' }}
                             @endif
                         </td>
+                    </tr>
+                    <tr>
+                        <th>Short Description</th>
+                        <td>{{ $data['row']->short_description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Long Description</th>
+                        <td>{{ $data['row']->long_description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Created By</th>
+                        <td>{{ $data['row']->createdBy->name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Updated By</th>
+                        <td>{{ $data['row']->updatedBy->name ?? 'Not Updated Yet' }}</td>
                     </tr>
                     <tr>
                         <th>Created At</th>

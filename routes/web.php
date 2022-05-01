@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,17 +20,17 @@ Route::get('/', function () {
 });
 
 
-// Route::middleware(['web','auth'])->group(function () {
+Route::middleware(['web','auth'])->group(function () {
 
-    // Test
-    Route::get('test', [TestController::class, 'index'])->name('test.index');
-    Route::get('test/create', [TestController::class, 'create'])->name('test.create');
-    Route::post('test', [TestController::class, 'store'])->name('test.store');
-    Route::get('test/{id}/show', [TestController::class, 'show'])->name('test.show');
-    Route::get('test/{id}/edit', [TestController::class, 'edit'])->name('test.edit');
-    Route::put('test/{id}/update', [TestController::class, 'update'])->name('test.update');
-    Route::delete('test/{id}/destroy', [TestController::class, 'destroy'])->name('test.destroy');
-// });
+    // Category
+    Route::get('category', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('category/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('category', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('category/{id}', [CategoryController::class, 'show'])->name('category.show');
+    Route::get('category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::put('category/{id}/update', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('category/{id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
+});
 
 Auth::routes();
 

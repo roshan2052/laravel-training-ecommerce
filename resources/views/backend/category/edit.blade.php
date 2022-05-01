@@ -1,4 +1,6 @@
-@extends('backend.layouts.master')
+@extends('backend.layouts.master',['page' => 'edit'])
+
+@section('title','edit'.' '.$panel)
 
 @section('content')
     <div class="row">
@@ -24,4 +26,14 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        $("#name").keyup(function(){
+            let name = $(this).val();
+            let slug = name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+            $("#slug").val(slug);
+        });
+    </script>
 @endsection
