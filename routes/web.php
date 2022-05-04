@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,16 @@ Route::middleware(['web','auth'])->group(function () {
     Route::get('category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
     Route::put('category/{id}/update', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('category/{id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
+
+    // Category
+    Route::get('sub-category', [SubCategoryController::class, 'index'])->name('sub_category.index');
+    Route::get('sub-category/create', [SubCategoryController::class, 'create'])->name('sub_category.create');
+    Route::post('sub-category', [SubCategoryController::class, 'store'])->name('sub_category.store');
+    Route::get('sub-category/{id}', [SubCategoryController::class, 'show'])->name('sub_category.show');
+    Route::get('sub-category/{id}/edit', [SubCategoryController::class, 'edit'])->name('sub_category.edit');
+    Route::put('sub-category/{id}/update', [SubCategoryController::class, 'update'])->name('sub_category.update');
+    Route::delete('sub-category/{id}/destroy', [SubCategoryController::class, 'destroy'])->name('sub_category.destroy');
+
 });
 
 Auth::routes();

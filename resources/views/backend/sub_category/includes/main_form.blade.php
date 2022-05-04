@@ -1,4 +1,13 @@
 <div class="card-body">
+
+    <div class="form-group row mb-3">
+        {{ Form::label('category_id', 'Category *', ['class' => 'col-3 col-form-label']) }}
+        <div class="col-9">
+            {{ Form::select('category_id',$data['categories'], null, ['class' => 'form-control', 'id' => 'category_id', 'placeholder' => 'Please select category']) }}
+            @include('backend.includes.validation_error_message',['fieldname' => 'category_id'])
+        </div>
+    </div>
+
     <div class="form-group row mb-3">
         {{ Form::label('name', 'Name *', ['class' => 'col-3 col-form-label']) }}
         <div class="col-9">
@@ -45,7 +54,7 @@
     <div class="form-group row mb-3">
         {{ Form::label('long_description', 'Long Description', ['class' => 'col-3 col-form-label']) }}
         <div class="col-9">
-            {{ Form::textarea('long_description', null, ['class' => 'form-control', 'id' => 'long_description', 'placeholder' => 'Long Description','rows' => 5]) }}
+            {{ Form::textarea('long_description', null, ['class' => 'form-control ckeditor', 'id' => 'long_description', 'placeholder' => 'Long Description']) }}
             @include('backend.includes.validation_error_message',['fieldname' => 'long_description'])
         </div>
     </div>
