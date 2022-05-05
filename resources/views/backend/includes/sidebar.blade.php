@@ -88,6 +88,30 @@
                     </ul>
                 </li>
 
+                <li class="nav-item {{ request()->is('product*') ? 'menu-open' : "" }}">
+                    <a href="#" class="nav-link {{ request()->is('product*') ? 'active' : "" }}">
+                        <i class="nav-icon fa fa-tasks"></i>
+                        <p>
+                            Product
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('product.index') }}" class="nav-link {{ request()->is('product') ? 'active' : "" }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('product.create') }}" class="nav-link {{ request()->is('product/create') ? 'active' : "" }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-item">
                     <a href="/dashboard" class="nav-link" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                         <i class="nav-icon fas fa-sign-out-alt"></i>

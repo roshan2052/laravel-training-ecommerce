@@ -30,7 +30,6 @@
                         <thead>
                             <tr>
                                 <th>S.N</th>
-                                <th>Category</th>
                                 <th>Name</th>
                                 <th>Slug</th>
                                 <th>Image</th>
@@ -43,7 +42,6 @@
                             @foreach($data['rows'] as $row)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $row->category->name }}</td>
                                 <td>{{ $row->name }}</td>
                                 <td>{{ $row->slug }}</td>
                                 <td>

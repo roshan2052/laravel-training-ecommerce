@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,16 @@ Route::middleware(['web','auth'])->group(function () {
     Route::get('sub-category/{id}/edit', [SubCategoryController::class, 'edit'])->name('sub_category.edit');
     Route::put('sub-category/{id}/update', [SubCategoryController::class, 'update'])->name('sub_category.update');
     Route::delete('sub-category/{id}/destroy', [SubCategoryController::class, 'destroy'])->name('sub_category.destroy');
+
+    //Product
+    Route::get('product', [ProductController::class, 'index'])->name('product.index');
+    Route::get('product/create',[ProductController::class, 'create'])->name('product.create');
+    Route::post('product',[ProductController::class,'store'])->name('product.store');
+    Route::get('product/{id}',[ProductController::class,'show'])->name('product.show');
+    Route::get('product/{id}/edit',[ProductController::class,'edit'])->name('product.edit');
+    Route::put('product/{id}/update',[ProductController::class,'update'])->name('product.update');
+    Route::delete('product/{id}/destroy',[ProductController::class,'destroy'])->name('product.destroy');
+    Route::post('product/get-sub-category',[ProductController::class,'getSubCategory'])->name('product.get_sub_category');
 
 });
 
