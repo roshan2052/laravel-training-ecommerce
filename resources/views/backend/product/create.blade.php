@@ -63,6 +63,34 @@
                 $('#sub_category_id').children('option').not(':first').remove();
             }
             });
+
+            var y = 1;
+            $('#addMoreAttribute').click(function(){
+                var max_fields = 5;
+                if (y < max_fields) { //max input box allowed
+                    y++;
+                    $("#attribute_wrapper tr:last").after(
+                        '<tr>'+
+                        '   <td>{!! Form::select('attribute_id[]',[],null,['class' => 'form-control','placeholder' => "Select Attribute"]) !!}'+
+                        '   </td>'+
+                        '   <td><input type="text" name="attribute_value[]" class="form-control" placeholder="Enter Attribute Value"/></td>'+
+                        '   <td>'+
+                        '       <a class="btn btn-block btn-danger sa-warning remove_row"><i class="fa fa-trash"></i></a>'+
+                        '   </td>'+
+                        '</tr>'
+                    );
+                }
+                else{
+                    alert('Maximum Attribute Limit is 5');
+                }
+            });
+
+            $(document).on("click",".remove_row",function() {
+                y--;
+                $(this).closest("tr").remove();
+            });
+
+
         });
 
     </script>

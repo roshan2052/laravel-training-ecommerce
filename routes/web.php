@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,12 @@ Route::middleware(['web','auth'])->group(function () {
     Route::put('product/{id}/update',[ProductController::class,'update'])->name('product.update');
     Route::delete('product/{id}/destroy',[ProductController::class,'destroy'])->name('product.destroy');
     Route::post('product/get-sub-category',[ProductController::class,'getSubCategory'])->name('product.get_sub_category');
+
+    // Setting
+    Route::get('setting/create',[SettingController::class, 'create'])->name('setting.create');
+    Route::post('setting',[SettingController::class,'store'])->name('setting.store');
+    Route::get('setting/{id}/edit',[SettingController::class,'edit'])->name('setting.edit');
+    Route::put('setting/{id}/update',[SettingController::class,'update'])->name('setting.update');
 
 });
 

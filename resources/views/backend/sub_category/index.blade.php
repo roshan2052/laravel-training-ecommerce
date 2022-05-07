@@ -1,6 +1,6 @@
 @extends('backend.layouts.master',['page' => 'List'])
 
-@section('title',$panel)
+@section('title', $panel)
 
 @section('css')
     <!-- DataTables -->
@@ -19,7 +19,7 @@
 
                 <div class="card-header">
                     <h3 class="card-title">List {{ $panel }}</h3>
-                    <a class="btn btn-success btn-md float-right" href="{{ route($base_route.'create') }}">
+                    <a class="btn btn-success btn-md float-right" href="{{ route($base_route . 'create') }}">
                         <i class="fas fa-pencil-alt"></i>
                         Create
                     </a>
@@ -40,44 +40,46 @@
                         </thead>
                         <tbody>
 
-                            @foreach($data['rows'] as $row)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $row->category->name }}</td>
-                                <td>{{ $row->name }}</td>
-                                <td>{{ $row->slug }}</td>
-                                <td>
-                                    @if($row->image)
-                                        <img src="{{ asset($img_path.$row->image) }}" alt="image" class="img-fluid" width="100px" height="100px">
-                                    @else
-                                        {{ 'Image Not Available' }}
-                                    @endif
+                            @foreach ($data['rows'] as $row)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $row->category->name }}</td>
+                                    <td>{{ $row->name }}</td>
+                                    <td>{{ $row->slug }}</td>
+                                    <td>
+                                        @if ($row->image)
+                                            <img src="{{ asset($img_path . $row->image) }}" alt="image"
+                                                class="img-fluid" width="100px" height="100px">
+                                        @else
+                                            {{ 'Image Not Available' }}
+                                        @endif
                                     </td>
-                                <td>{{ $row->created_at }}</td>
-                                <td style="display:flex">
-                                    <a class="btn btn-primary btn-sm mr-2"
-                                        href="{{ route($base_route.'show', ['id' => $row->id]) }}">
-                                        <i class="fas fa-folder">
-                                        </i>
-                                        View
-                                    </a>
-                                    <a class="btn btn-info btn-sm mr-2"
-                                        href="{{ route($base_route.'edit', ['id' => $row->id]) }}">
-                                        <i class="fas fa-pencil-alt">
-                                        </i>
-                                        Edit
-                                    </a>
+                                    <td>{{ $row->created_at }}</td>
+                                    <td style="display:flex">
+                                        <a class="btn btn-primary btn-sm mr-2"
+                                            href="{{ route($base_route . 'show', ['id' => $row->id]) }}">
+                                            <i class="fas fa-folder">
+                                            </i>
+                                            View
+                                        </a>
+                                        <a class="btn btn-info btn-sm mr-2"
+                                            href="{{ route($base_route . 'edit', ['id' => $row->id]) }}">
+                                            <i class="fas fa-pencil-alt">
+                                            </i>
+                                            Edit
+                                        </a>
 
-                                    <form action="{{ route($base_route.'destroy',['id' => $row->id]) }}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                        <button class="btn btn-danger btn-sm delete-confirm" type="button">
-                                        <i class="fas fa-trash"></i>
-                                        Delete
-                                    </button>
-                                    </form>
-                                </td>
-                            </tr>
+                                        <form action="{{ route($base_route . 'destroy', ['id' => $row->id]) }}"
+                                            method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-danger btn-sm delete-confirm" type="button">
+                                                <i class="fas fa-trash"></i>
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
 
                         </tbody>
@@ -109,22 +111,20 @@
         });
 
 
-        $('.delete-confirm').click(function(){
+        $('.delete-confirm').click(function() {
             Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
-            if (result.isConfirmed) {
-                $(this).closest("form").submit();
-            }
+                if (result.isConfirmed) {
+                    $(this).closest("form").submit();
+                }
             })
         });
-
     </script>
 @endsection
-
