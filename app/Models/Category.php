@@ -11,4 +11,8 @@ class Category extends BackendBase
 
     use HasFactory;
 
+    public function subCategories(){
+        return $this->hasMany(Subcategory::class);
+    }
+
 }

@@ -29,5 +29,11 @@
 @endsection
 
 @section('js')
-    @include($view_path.'includes.script')
+    <script>
+        $("#name").keyup(function(){
+            let name = $(this).val();
+            let slug = name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+            $("#slug").val(slug);
+        });
+    </script>
 @endsection

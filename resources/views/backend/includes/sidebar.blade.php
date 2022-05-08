@@ -88,6 +88,54 @@
                     </ul>
                 </li>
 
+                <li class="nav-item {{ request()->is('tags*') ? 'menu-open' : "" }}">
+                    <a href="#" class="nav-link {{ request()->is('tags*') ? 'active' : "" }}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Tags
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('tags.index') }}" class="nav-link active">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('tags.create') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create</p>
+                            </a>
+                        </li>
+                    </ul>
+                  </li>
+                 <li class="nav-item  {{ request()->is('attributes*') ? 'menu-open' : "" }}">
+                        <a href="#" class="nav-link  {{ request()->is('attributes*') ? 'active' : "" }}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Attributes
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('attributes.index') }}" class="nav-link active">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>List</p>
+                                </a>
+                </li
+
+                    <li class="nav-item">
+                                <a href="{{ route('attributes.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Create</p>
+                                </a>
+                            </li>
+                        </ul>
+                   </li>
+
                 <li class="nav-item {{ request()->is('product*') ? 'menu-open' : "" }}">
                     <a href="#" class="nav-link {{ request()->is('product*') ? 'active' : "" }}">
                         <i class="nav-icon fa fa-tasks"></i>

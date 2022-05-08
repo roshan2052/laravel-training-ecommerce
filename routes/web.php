@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +44,24 @@ Route::middleware(['web','auth'])->group(function () {
     Route::get('sub-category/{id}/edit', [SubCategoryController::class, 'edit'])->name('sub_category.edit');
     Route::put('sub-category/{id}/update', [SubCategoryController::class, 'update'])->name('sub_category.update');
     Route::delete('sub-category/{id}/destroy', [SubCategoryController::class, 'destroy'])->name('sub_category.destroy');
+
+    // Tags
+    Route::get('tags', [TagController::class, 'index'])->name('tags.index');
+    Route::get('tags/create', [TagController::class, 'create'])->name('tags.create');
+    Route::post('tags', [TagController::class, 'store'])->name('tags.store');
+    Route::get('tags/{id}', [TagController::class, 'show'])->name('tags.show');
+    Route::get('tags/{id}/edit', [TagController::class, 'edit'])->name('tags.edit');
+    Route::put('tags/{id}/update', [TagController::class, 'update'])->name('tags.update');
+    Route::delete('tags/{id}/destroy', [TagController::class, 'destroy'])->name('tags.destroy');
+
+    // Attribites
+    Route::get('attributes', [AttributeController::class, 'index'])->name('attributes.index');
+    Route::get('attributes/create', [AttributeController::class, 'create'])->name('attributes.create');
+    Route::post('attributes', [AttributeController::class, 'store'])->name('attributes.store');
+    Route::get('attributes/{id}', [AttributeController::class, 'show'])->name('attributes.show');
+    Route::get('attributes/{id}/edit', [AttributeController::class, 'edit'])->name('attributes.edit');
+    Route::put('attributes/{id}/update', [AttributeController::class, 'update'])->name('attributes.update');
+    Route::delete('attributes/{id}/destroy', [AttributeController::class, 'destroy'])->name('attributes.destroy');
 
     //Product
     Route::get('product', [ProductController::class, 'index'])->name('product.index');

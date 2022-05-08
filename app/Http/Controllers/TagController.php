@@ -2,26 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CategoryRequest;
-use App\Http\Requests\ProductRequest;
-use App\Models\Attribute;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\SubCategory;
+use App\Http\Requests\TagRequest;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
-class ProductController extends BackendBaseController
+class TagController extends BackendBaseController
 {
     private $model;
-    protected $panel = 'Product';
-    protected $base_route = 'product.';
-    protected $view_path = 'backend.product.';
-    protected $img_path = 'images/product/';
+    protected $panel = 'Tag';
+    protected $base_route = 'tags.';
+    protected $view_path = 'backend.tag.';
+    protected $img_path = 'images/tag/';
 
     public function __construct()
     {
-        $this->model = new Product();
+        $this->model = new Tag;
     }
 
     public function index(){
@@ -36,25 +31,19 @@ class ProductController extends BackendBaseController
     public function create(){
 
         $data = [];
-        $data['categories'] = Category::active()->pluck('name','id');
-        $data['sub_categories'] = [];
-        $data['attributes'] = Attribute::active()->pluck('name','id');
-        $data['tags'] = Tag::active()->pluck('name','id');
 
         return view($this->__loadDataToView($this->view_path . 'create'),compact('data'));
     }
 
-    public function store(ProductRequest $request){
+    public function store(TagRequest $request){
         try{
+
             $request->request->add(['created_by' => auth()->user()->id]);
-            $product = $this->model->create($request->all());
-
-            $product->tags()->attach($request['tag_id']);
-
+            $this->model->create($request->all());
             session()->flash('success_message', $this->panel.' Inserted Successfully');
         }
         catch(\Exception $e){
-            session()->flash('error_message',$e->getMessage());
+            session()->flash('error_message','Something went wrong!');
         }
 
         return redirect()->route($this->base_route.'index');
@@ -70,26 +59,20 @@ class ProductController extends BackendBaseController
 
     public function edit($id){
         $data = [];
+
         $data['row'] =  $this->model->findorFail($id);
-        $data['categories'] = Category::active()->pluck('name','id');
-        $data['sub_categories'] = $data['row']->category->subCategories->pluck('name','id');
-        $data['attributes'] = Attribute::active()->pluck('name','id');
-        $data['tags'] = Tag::active()->pluck('name','id');
 
         return view($this->__loadDataToView($this->view_path .'edit'),compact('data'));
     }
 
-    public function update(ProductRequest $request,$id){
+    public function update(TagRequest $request,$id){
 
         $data['row'] =  $this->model->findorFail($id);
 
         try{
+
             $request->request->add(['updated_by' => auth()->user()->id]);
-
             $data['row']->update($request->all());
-
-            $data['row']->tags()->sync($request['tag_id']);
-
             session()->flash('success_message',$this->panel.' Updated Successfully');
         }
         catch(\Exception $e){
@@ -103,7 +86,7 @@ class ProductController extends BackendBaseController
         $data['row'] = $this->model->findorFail($id);
 
         try{
-            $this->deleteImage($data['row']->image);
+
             $data['row']->delete();
             session()->flash('success_message',$this->panel.' Deleted Successfully');
         }
@@ -111,11 +94,6 @@ class ProductController extends BackendBaseController
             session()->flash('error_message','Something went wrong!');
         }
         return redirect()->route($this->base_route.'index');
-    }
-
-    public function getSubCategory()
-    {
-        return SubCategory::where('category_id', request('category_id'))->pluck('name', 'id');
     }
 
 }
