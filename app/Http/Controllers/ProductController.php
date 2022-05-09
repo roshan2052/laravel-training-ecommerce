@@ -7,9 +7,11 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductAttributeDetail;
 use App\Models\SubCategory;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends BackendBaseController
 {
@@ -45,19 +47,37 @@ class ProductController extends BackendBaseController
     }
 
     public function store(ProductRequest $request){
+
         try{
+            DB::beginTransaction();
+
             $request->request->add(['created_by' => auth()->user()->id]);
+
+            // to store product
             $product = $this->model->create($request->all());
 
+            // to store tags
             $product->tags()->attach($request['tag_id']);
+
+            // to store product attribute detail
+            foreach($request['attribute_id'] as $index => $attribute_id){
+                ProductAttributeDetail::create([
+                    'product_id'        =>  $product->id,
+                    'attribute_id'      => $attribute_id,
+                    'value'             => $request['attribute_value'][$index]
+                ]);
+            }
+
+            DB::commit();
 
             session()->flash('success_message', $this->panel.' Inserted Successfully');
         }
         catch(\Exception $e){
+            DB::rollback();
             session()->flash('error_message',$e->getMessage());
         }
 
-        return redirect()->route($this->base_route.'index');
+        return response()->json('Data sucessfully inserted');
     }
 
     public function show($id){

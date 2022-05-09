@@ -44,7 +44,7 @@
                 y++;
                 $("#attribute_wrapper tr:last").after(
                     '<tr>'+
-                    '   <td>{!! Form::select('attribute_id[]',[],null,['class' => 'form-control','placeholder' => "Select Attribute"]) !!}'+
+                    '   <td>{!! Form::select('attribute_id[]',$data['attributes'],null,['class' => 'form-control','placeholder' => "Select Attribute"]) !!}'+
                     '   </td>'+
                     '   <td><input type="text" name="attribute_value[]" class="form-control" placeholder="Enter Attribute Value"/></td>'+
                     '   <td>'+
@@ -66,6 +66,40 @@
                 alert('Sorry you can\'t remove last row');
             }
         });
+
+    //form submit
+    $('form#main_form').on('submit', function(event) {
+      event.preventDefault();
+
+      let route = $(this).attr('action');
+      let method = $(this).attr('method');
+      let data = new FormData(this);
+
+      $.ajax({
+        url: route,
+        data: data,
+        method: method,
+        dataType: "JSON",
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(res) {
+          window.location.href = "{{route($base_route.'index')}}";
+        },
+        error: function(err) {
+          $('span.text-danger').remove();
+          if (err.responseJSON.errors) {
+            $.each(err.responseJSON.errors, function(key, value) {
+              let splitted_key = key.split('.');
+              if (splitted_key.length > 1) {
+                $("<span class='text-danger'>" + value + "<br></span>").insertAfter($("[name='" + splitted_key[0] + "[]']")[splitted_key[1]]);
+              }
+              $('#' + key).after("<span class='text-danger'>" + value + "<br></span>");
+            });
+          }
+        },
+      });
+    });
 
 
     });

@@ -1,5 +1,13 @@
 @extends('backend.layouts.master',['page' => 'create'])
 
+@section('css')
+    <style>
+        .select2-selection__choice{
+            background-color : #1c21ccd0 !important;
+        }
+    </style>
+@endsection
+
 @section('title','create'.' '.$panel)
 
 @section('content')
@@ -14,7 +22,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-               {{ Form::open(['route' => $base_route.'store', 'method' => 'post', 'files' => true]) }}
+               {{ Form::open(['route' => $base_route.'store', 'method' => 'post', 'files' => true,'id' => 'main_form']) }}
 
                 @include($view_path.'includes.main_form')
 

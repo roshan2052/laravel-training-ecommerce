@@ -1,5 +1,13 @@
 @extends('backend.layouts.master',['page' => 'edit'])
 
+@section('css')
+    <style>
+        .select2-selection__choice{
+            background-color : #1c21ccd0 !important;
+        }
+    </style>
+@endsection
+
 @section('title','edit'.' '.$panel)
 
 @section('content')
@@ -18,7 +26,7 @@
                 </a>
             </div>
 
-            {{ Form::model($data['row'], ['route' => [$base_route.'update', $data['row']->id],'method' => 'put']) }}
+            {{ Form::model($data['row'], ['route' => [$base_route.'update', $data['row']->id],'method' => 'put','id' => 'main_form']) }}
 
             @include($view_path.'includes.main_form')
 

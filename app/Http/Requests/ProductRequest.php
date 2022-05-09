@@ -29,13 +29,11 @@ class ProductRequest extends FormRequest
             'name'              => 'required|string|max:191',
             'slug'              => 'required|string|max:191|unique:products,slug,' .$this->id,
             'code'              => 'required|integer|min:1|unique:products,code,' .$this->id,
-            'attribute_id'    => 'required|array',
-            'attribute_id.*'  => 'required',
+            'attribute_id'      => 'required|array',
+            'attribute_id.*'    => 'required',
+            'price'             => 'required|min:0',
         ];
     }
-
-
-
 
     public function messages()
     {
