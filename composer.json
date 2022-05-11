@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "ckeditor/ckeditor": "4.*",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.2",
@@ -13,7 +14,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.3",
-        "ckeditor/ckeditor": "4.*"
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

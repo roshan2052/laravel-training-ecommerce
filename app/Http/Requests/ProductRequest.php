@@ -31,6 +31,8 @@ class ProductRequest extends FormRequest
             'code'              => 'required|integer|min:1|unique:products,code,' .$this->id,
             'attribute_id'      => 'required|array',
             'attribute_id.*'    => 'required',
+            'attribute_value'   => 'required|array',
+            'attribute_value.*' => 'required',
             'price'             => 'required|min:0',
         ];
     }
@@ -38,8 +40,10 @@ class ProductRequest extends FormRequest
     public function messages()
     {
         return [
-            'category_id.required'      => 'Please Select Category',
-            'subcategory_id.required'   => 'Please Select Subcategory',
+            'category_id.required'          => 'Please Select Category',
+            'subcategory_id.required'       => 'Please Select Subcategory',
+            'attribute_id.*.required'       => 'Please Select Attribute',
+            'attribute_value.*.required'    => 'Please Enter Attribute Value',
         ];
     }
 

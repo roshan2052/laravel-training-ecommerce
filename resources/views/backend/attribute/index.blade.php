@@ -97,6 +97,7 @@
     <script src="{{ asset('assets/backend/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('assets/backend/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('assets/backend/common/general.js') }}"></script>
     <script>
         $(function() {
             $("#dataTable").DataTable({
@@ -105,24 +106,6 @@
                 "autoWidth": false,
             })
         });
-
-
-        $('.delete-confirm').click(function(){
-            Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-            if (result.isConfirmed) {
-                $(this).closest("form").submit();
-            }
-            })
-        });
-
     </script>
 @endsection
 

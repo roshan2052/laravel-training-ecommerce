@@ -104,18 +104,33 @@ class ProductController extends BackendBaseController
         $data['row'] =  $this->model->findorFail($id);
 
         try{
+            DB::beginTransaction();
+
             $request->request->add(['updated_by' => auth()->user()->id]);
 
             $data['row']->update($request->all());
 
             $data['row']->tags()->sync($request['tag_id']);
 
+            // to update/create product attribute detail
+            foreach($request['attribute_id'] as $index => $attribute_id){
+                ProductAttributeDetail::updateOrCreate([
+                    'product_id'        => $data['row']->id,
+                    'attribute_id'      => $attribute_id,
+                ],[
+                    'value'             => $request['attribute_value'][$index]
+                ]);
+            }
+
+            DB::commit();
+
             session()->flash('success_message',$this->panel.' Updated Successfully');
         }
         catch(\Exception $e){
+            DB::rollback();
             session()->flash('error_message','Something went wrong!');
         }
-        return redirect()->route($this->base_route.'index');
+        return response()->json('Data Updated Successfully');
     }
 
     public function destroy($id){
@@ -123,11 +138,15 @@ class ProductController extends BackendBaseController
         $data['row'] = $this->model->findorFail($id);
 
         try{
-            $this->deleteImage($data['row']->image);
+            DB::beginTransaction();
+            $data['row']->tags()->detach();
+            $data['row']->productAttributeDetails->each->delete();
             $data['row']->delete();
+            DB::commit();
             session()->flash('success_message',$this->panel.' Deleted Successfully');
         }
         catch(\Exception $e){
+            DB::rollback();
             session()->flash('error_message','Something went wrong!');
         }
         return redirect()->route($this->base_route.'index');

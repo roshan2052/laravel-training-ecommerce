@@ -21,4 +21,8 @@ class Product extends BackendBase
     public function tags(){
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
+
+    public function productAttributeDetails(){
+        return $this->hasMany(ProductAttributeDetail::class);
+    }
 }
