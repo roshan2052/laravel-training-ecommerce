@@ -6,6 +6,7 @@ use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\TestRequest;
 use App\Models\Category;
 use App\Models\Test;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 
 class CategoryController extends BackendBaseController
@@ -16,18 +17,22 @@ class CategoryController extends BackendBaseController
     protected $view_path = 'backend.category.';
     protected $img_path = 'images/category/';
 
-    public function __construct()
+    public function __construct(CategoryService $categoryService)
     {
-        $this->model = new Category;
+        $this->model            = new Category;
+        $this->categoryService  = $categoryService;
     }
 
     public function index(){
 
         $data = [];
 
-        $data['rows'] = $this->model->latest()->get();
-
         return view($this->__loadDataToView($this->view_path . 'index'),compact('data'));
+    }
+
+    public function getCategoryDataForDataTable(Request $request)
+    {
+        return $this->categoryService->getDataForDataTable($request);
     }
 
     public function create(){

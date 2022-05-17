@@ -32,52 +32,10 @@
                                 <th>S.N</th>
                                 <th>Name</th>
                                 <th>Slug</th>
-                                <th>Image</th>
-                                <th>Created Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-
-                            @foreach($data['rows'] as $row)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $row->name }}</td>
-                                <td>{{ $row->slug }}</td>
-                                <td>
-                                    @if($row->image)
-                                        <img src="{{ asset($img_path.$row->image) }}" alt="image" class="img-fluid" width="100px" height="100px">
-                                    @else
-                                        {{ 'Image Not Available' }}
-                                    @endif
-                                    </td>
-                                <td>{{ $row->created_at }}</td>
-                                <td style="display:flex">
-                                    <a class="btn btn-primary btn-sm mr-2"
-                                        href="{{ route($base_route.'show', ['id' => $row->id]) }}">
-                                        <i class="fas fa-folder">
-                                        </i>
-                                        View
-                                    </a>
-                                    <a class="btn btn-info btn-sm mr-2"
-                                        href="{{ route($base_route.'edit', ['id' => $row->id]) }}">
-                                        <i class="fas fa-pencil-alt">
-                                        </i>
-                                        Edit
-                                    </a>
-
-                                    <form action="{{ route($base_route.'destroy',['id' => $row->id]) }}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                        <button class="btn btn-danger btn-sm delete-confirm" type="button">
-                                        <i class="fas fa-trash"></i>
-                                        Delete
-                                    </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-
                         </tbody>
                     </table>
                 </div>
@@ -99,14 +57,28 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/backend/common/general.js') }}"></script>
 
-    <script>
-        $(function() {
-            $("#dataTable").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-            })
-        });
-    </script>
+<script>
+    var dataTable = $('#dataTable').DataTable({
+        processing: true,
+        serverSide: true,
+        searching: true,
+        stateSave: true,
+        order: [[1, 'asc']],
+        aaSorting: [],
+        ajax: {
+            "url": "{{ route('category.data') }}",
+            'type': 'POST',
+            data: function(d) {
+                d._token = "{{ csrf_token() }}";
+            }
+        },
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex', searchable: false, orderable: false},
+            {data: "name", name: "name"},
+            {data: "slug", name: "slug"},
+            {data: "action", name: "action", searchable: false, orderable: false}
+        ]
+    });
+</script>
 @endsection
 

@@ -35,8 +35,9 @@ Route::middleware(['web','auth'])->group(function () {
     Route::get('category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
     Route::put('category/{id}/update', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('category/{id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::post('category/data', [CategoryController::class, 'getCategoryDataForDataTable'])->name('category.data');
 
-    // Category
+    // Sub Category
     Route::get('sub-category', [SubCategoryController::class, 'index'])->name('sub_category.index');
     Route::get('sub-category/create', [SubCategoryController::class, 'create'])->name('sub_category.create');
     Route::post('sub-category', [SubCategoryController::class, 'store'])->name('sub_category.store');
