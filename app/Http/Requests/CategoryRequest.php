@@ -27,7 +27,7 @@ class CategoryRequest extends FormRequest
             'name'          => 'required|string|max:191',
             'slug'          => 'required|string|max:191|unique:categories,slug,' .$this->id,
             'rank'          => 'required|integer|min:1|unique:categories,rank,' .$this->id,
-            'image_field'   => 'nullable|image',
+            // 'image_field'   => 'nullable|image',
         ];
 
     }

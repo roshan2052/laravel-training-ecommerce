@@ -22,10 +22,13 @@ class CategoryService
     {
         return $this->dataTables::of($this->model->latest())
             ->editColumn('name', function($category){
-                return $category->name;
+                return ucfirst($category->name);
             })
             ->editColumn('slug', function($category){
-                return $category->slug;
+                return $category->category->name;
+            })
+            ->editColumn('image', function($category){
+                return $category->image ? "<img src =".asset('images/category/'.$category->image)." class='img-fluid' width='100px' height='100px'>" : 'Image not found';
             })
             ->addColumn('action', function($category){
                 $params = [
@@ -37,7 +40,7 @@ class CategoryService
                 ];
                 return view('backend.includes.datatable_action', compact('params'));
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','image'])
             ->addIndexColumn()
             ->make(true);
     }

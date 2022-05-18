@@ -32,6 +32,7 @@
                                 <th>S.N</th>
                                 <th>Name</th>
                                 <th>Slug</th>
+                                <th>Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -76,6 +77,7 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex', searchable: false, orderable: false},
             {data: "name", name: "name"},
             {data: "slug", name: "slug"},
+            {data: "image", name: "image"},
             {data: "action", name: "action", searchable: false, orderable: false}
         ]
     });
