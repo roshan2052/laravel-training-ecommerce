@@ -8,6 +8,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -79,6 +80,11 @@ Route::middleware(['web','auth'])->group(function () {
     Route::post('setting',[SettingController::class,'store'])->name('setting.store');
     Route::get('setting/{id}/edit',[SettingController::class,'edit'])->name('setting.edit');
     Route::put('setting/{id}/update',[SettingController::class,'update'])->name('setting.update');
+
+    // User Profile
+    Route::get('user-profile/create',[UserProfileController::class, 'create'])->name('user_profile.create');
+    Route::post('user-profile/update-basic-info',[UserProfileController::class,'updateBasicInfo'])->name('user_profile.update_basic_info');
+    Route::post('user-profile/update-password',[UserProfileController::class,'updatePassword'])->name('user_profile.update_password');
 
 });
 
