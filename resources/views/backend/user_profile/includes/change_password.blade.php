@@ -4,6 +4,7 @@
     {{ Form::label('old_password', 'Old Password *', ['class' => 'col-3 col-form-label']) }}
     <div class="col-9">
         {{ Form::password('old_password', ['class' => 'form-control', 'id' => 'old_password', 'placeholder' => 'Old Password']) }}
+        <span class="fa fa-eye" onclick="showOldPassword()"></span>
     </div>
 </div>
 

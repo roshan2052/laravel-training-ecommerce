@@ -1,9 +1,13 @@
-{{ Form::open(['route' => $base_route . 'update_basic_info', 'method' => 'post', 'files' => true, 'id' => 'main_form']) }}
+@if(isset($data['row']))
+    {{ Form::model($data['row'], ['route' => [$base_route.'update_basic_info', $data['row']->id],'method' => 'post']) }}
+@else
+    {{ Form::open(['route' => $base_route . 'update_basic_info', 'method' => 'post', 'files' => true]) }}
+@endif
 
 <div class="form-group row mb-3">
     {{ Form::label('phone', 'Phone *', ['class' => 'col-3 col-form-label']) }}
     <div class="col-9">
-        {{ Form::text('phone', null, ['class' => 'form-control', 'id' => 'phone', 'placeholder' => 'Phone']) }}
+        {{ Form::text('phone',null, ['class' => 'form-control', 'id' => 'phone', 'placeholder' => 'Phone']) }}
         @include('backend.includes.validation_error_message', ['fieldname' => 'phone',])
     </div>
 </div>

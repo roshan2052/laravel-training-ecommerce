@@ -6,11 +6,13 @@ use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\SettingRequest;
 use App\Http\Requests\TestRequest;
 use App\Http\Requests\UpdateBasicInfoRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Models\Category;
 use App\Models\Setting;
 use App\Models\Test;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserProfileController extends BackendBaseController
 {
@@ -29,43 +31,38 @@ class UserProfileController extends BackendBaseController
 
         $data = [];
 
+        $data['row'] =  auth()->user()->userProfile;
+
         return view($this->__loadDataToView($this->view_path . 'create'),compact('data'));
     }
 
     public function updateBasicInfo(UpdateBasicInfoRequest $request){
-        // try{
-            if ($request->hasFile('image_field')) {
-                $image_name = $this->uploadImage($request);
-                $request->request->add(['logo' => $image_name]);
-            }
-            dd('basic_info');
-            $request->request->add(['created_by' => auth()->user()->id]);
-            $setting = $this->model->create($request->all());
-            session()->flash('success_message', $this->panel.' Inserted Successfully');
-        // }
-        // catch(\Exception $e){
-        //     session()->flash('error_message','Something went wrong!');
-        // }
+        try{
+            $request->request->add(['user_id' => auth()->user()->id]);
 
-        return redirect()->route($this->base_route.'edit',$setting->id);
+            $this->model->updateOrCreate([
+                'user_id' => auth()->user()->id,
+            ],
+                $request->all()
+            );
+
+            session()->flash('success_message', $this->panel.' Updated Successfully');
+        }
+        catch(\Exception $e){
+            session()->flash('error_message','Something went wrong!');
+        }
+
+        return response()->json('ok');
     }
 
-    public function updatePassword(Request $request){
-        // try{
-            if ($request->hasFile('image_field')) {
-                $image_name = $this->uploadImage($request);
-                $request->request->add(['logo' => $image_name]);
-            }
-            dd('update_pass');
-            $request->request->add(['created_by' => auth()->user()->id]);
-            $setting = $this->model->create($request->all());
-            session()->flash('success_message', $this->panel.' Inserted Successfully');
-        // }
-        // catch(\Exception $e){
-        //     session()->flash('error_message','Something went wrong!');
-        // }
+    public function updatePassword(UpdatePasswordRequest $request){
 
-        return redirect()->route($this->base_route.'edit',$setting->id);
+        $hashed_password = bcrypt($request['new_password']);
+        auth()->user()->update(['password' => $hashed_password ]);
+
+        session()->flash('success_message','Password Updated Successfully !');
+
+        return response()->json('ok');
     }
 
 

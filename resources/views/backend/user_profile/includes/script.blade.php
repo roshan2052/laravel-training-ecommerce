@@ -2,7 +2,7 @@
     $(document).ready(function() {
 
         //form submit
-        $('form#main_form').on('submit', function(event) {
+        $('form').on('submit', function(event) {
             event.preventDefault();
 
             let route = $(this).attr('action');
@@ -36,5 +36,16 @@
         });
 
     });
+
+    function showOldPassword(){
+
+        let type = $("#old_password").attr('type');
+
+        if(type == 'password'){
+            $("#old_password").attr('type','text');
+        }else{
+            $("#old_password").attr('type','password');
+        }
+    }
 
 </script>

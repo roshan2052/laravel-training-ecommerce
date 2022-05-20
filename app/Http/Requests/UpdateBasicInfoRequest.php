@@ -24,7 +24,7 @@ class UpdateBasicInfoRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone'             => 'required|integer|max:10',
+            'phone'             => 'required|integer|digits:10',
             'address'           => 'nullable|string|max:191',
             'dob'               => 'nullable|date',
         ];
