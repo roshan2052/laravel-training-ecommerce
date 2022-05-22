@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class UpdatePasswordRequest extends FormRequest
 {
@@ -30,7 +31,7 @@ class UpdatePasswordRequest extends FormRequest
                     $fail('old password didn\'t match.');
                 }
             }],
-            'new_password'              => 'required|min:6',
+            'new_password' => ['required', Password::min(8)->uncompromised()],
             'new_password_confirmation' => 'required|min:6|same:new_password',
         ];
 

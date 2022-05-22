@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\FilterDataTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends BackendBase
 {
-    use HasFactory;
+    use FilterDataTrait;
+
     protected $fillable =['category_id','sub_category_id','name','slug','code','short_description','description','price','quantity','stock','feature_key','flash_key','status','created_by','updated_by'];
 
     public function category(){

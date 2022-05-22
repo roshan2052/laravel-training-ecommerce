@@ -25,7 +25,7 @@ class CategoryService
                 return ucfirst($category->name);
             })
             ->editColumn('slug', function($category){
-                return $category->category->name;
+                return $category->slug;
             })
             ->editColumn('image', function($category){
                 return $category->image ? "<img src =".asset('images/category/'.$category->image)." class='img-fluid' width='100px' height='100px'>" : 'Image not found';
