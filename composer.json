@@ -14,6 +14,8 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.3",
+        "maatwebsite/excel": "^3.1",
+        "psr/simple-cache": "1.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
@@ -25,6 +27,9 @@
         "spatie/laravel-ignition": "^1.0"
     },
     "autoload": {
+        "files": [
+            "app/HelperClass/General.php"
+        ],
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",

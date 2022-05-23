@@ -28,6 +28,8 @@ Route::get('/', [HomeController::class, 'index'])->name('frontend.index');
 
 Route::middleware(['web','auth'])->group(function () {
 
+    Route::get('category/export/', [CategoryController::class, 'export']);
+
     // Category
     Route::get('category', [CategoryController::class, 'index'])->name('category.index');
     Route::get('category/create', [CategoryController::class, 'create'])->name('category.create');
@@ -37,6 +39,7 @@ Route::middleware(['web','auth'])->group(function () {
     Route::put('category/{id}/update', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('category/{id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
     Route::post('category/data', [CategoryController::class, 'getCategoryDataForDataTable'])->name('category.data');
+
 
     // Sub Category
     Route::get('sub-category', [SubCategoryController::class, 'index'])->name('sub_category.index');

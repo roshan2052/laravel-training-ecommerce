@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CategoryExport;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\TestRequest;
 use App\Models\Category;
 use App\Models\Test;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CategoryController extends BackendBaseController
 {
@@ -24,7 +26,6 @@ class CategoryController extends BackendBaseController
     }
 
     public function index(){
-
         $data = [];
 
         return view($this->__loadDataToView($this->view_path . 'index'),compact('data'));
@@ -108,6 +109,14 @@ class CategoryController extends BackendBaseController
             session()->flash('error_message','Something went wrong!');
         }
         return redirect()->route($this->base_route.'index');
+    }
+
+    public function export()
+    {
+
+        $data['row'] = Category::active()->get();
+
+        return Excel::download(new CategoryExport($data), 'Category.xlsx');
     }
 
 }
