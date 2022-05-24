@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Exports\CategoryExport;
+use App\Exports\CategoryViewExport;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\TestRequest;
+use App\Imports\CategoryImport;
 use App\Models\Category;
 use App\Models\Test;
 use App\Services\CategoryService;
@@ -111,12 +113,25 @@ class CategoryController extends BackendBaseController
         return redirect()->route($this->base_route.'index');
     }
 
-    public function export()
+    public function exportCollection()
     {
 
         $data['row'] = Category::active()->get();
 
         return Excel::download(new CategoryExport($data), 'Category.xlsx');
+    }
+
+    public function exportView()
+    {
+
+        $data['row'] = Category::active()->get();
+
+        return Excel::download(new CategoryViewExport($data), 'Category.xlsx');
+    }
+
+    public function import() 
+    {
+        Excel::import(new CategoryImport, 'category.xlsx');
     }
 
 }

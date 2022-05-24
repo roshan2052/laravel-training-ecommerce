@@ -28,7 +28,8 @@ Route::get('/', [HomeController::class, 'index'])->name('frontend.index');
 
 Route::middleware(['web','auth'])->group(function () {
 
-    Route::get('category/export/', [CategoryController::class, 'export']);
+    Route::get('category/export-collection/', [CategoryController::class, 'exportCollection'])->name('category.export_collection');
+    Route::get('category/export-view/', [CategoryController::class, 'exportView'])->name('category.export_view');
 
     // Category
     Route::get('category', [CategoryController::class, 'index'])->name('category.index');

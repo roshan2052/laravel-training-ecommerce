@@ -23,6 +23,14 @@
                         <i class="fas fa-pencil-alt"></i>
                         Create
                     </a>
+                    <a class="btn btn-info btn-md float-right" href="{{ route($base_route.'export_collection') }}">
+                        <i class="fas fa-pencil-alt"></i>
+                        Export (From collection)
+                    </a>
+                    <a class="btn btn-warning btn-md float-right" href="{{ route($base_route.'export_view') }}">
+                        <i class="fas fa-pencil-alt"></i>
+                        Export (From View)
+                    </a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">

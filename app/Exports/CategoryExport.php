@@ -5,21 +5,21 @@ namespace App\Exports;
 use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class CategoryExport implements FromCollection, WithHeadings
 {
-    public $data;
+    protected $data;
 
     public function __construct($data)
     {
         $this->data = $data;
+        
     }
-
-    public function view(): View
+    public function collection()
     {
-        return view('exports.invoices', [
-            'invoices' => $this->data
-        ]);
+        return $this->data['row'];
     }
 
     public function headings(): array
