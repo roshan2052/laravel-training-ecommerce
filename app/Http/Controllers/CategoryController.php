@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\Constant;
 use App\Exports\CategoryExport;
 use App\Exports\CategoryViewExport;
 use App\Http\Requests\CategoryRequest;
@@ -46,18 +47,18 @@ class CategoryController extends BackendBaseController
     }
 
     public function store(CategoryRequest $request){
-        try{
+        // try{
             if ($request->hasFile('image_field')) {
                 $image_name = $this->uploadImage($request);
                 $request->request->add(['image' => $image_name]);
             }
             $request->request->add(['created_by' => auth()->user()->id]);
             $this->model->create($request->all());
-            session()->flash('success_message', $this->panel.' Inserted Successfully');
-        }
-        catch(\Exception $e){
-            session()->flash('error_message','Something went wrong!');
-        }
+            session()->flash('success_message', $this->panel.' '.Constant::CREATE);
+        // }
+        // catch(\Exception $e){
+        //     session()->flash('error_message','Something went wrong!');
+        // }
 
         return redirect()->route($this->base_route.'index');
     }
@@ -90,7 +91,7 @@ class CategoryController extends BackendBaseController
             }
             $request->request->add(['updated_by' => auth()->user()->id]);
             $data['row']->update($request->all());
-            session()->flash('success_message',$this->panel.' Updated Successfully');
+            session()->flash('success_message',$this->panel.' '. Constant::UPDATE);
         }
         catch(\Exception $e){
             session()->flash('error_message','Something went wrong!');
@@ -129,9 +130,23 @@ class CategoryController extends BackendBaseController
         return Excel::download(new CategoryViewExport($data), 'Category.xlsx');
     }
 
-    public function import() 
-    {
-        Excel::import(new CategoryImport, 'category.xlsx');
+    public function importExcel(){
+
+        $data = [];
+
+        return view($this->__loadDataToView($this->view_path . 'import_excel'),compact('data'));
+    }
+
+    public function import(Request $request){
+        $request->validate([
+            'file_name' => 'required',
+        ]);
+
+        Excel::import(new CategoryImport(),$request['file_name']);
+
+        session()->flash('success_message'.'Imported Successfully');
+
+        return back();
     }
 
 }

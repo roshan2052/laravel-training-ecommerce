@@ -28,8 +28,13 @@ Route::get('/', [HomeController::class, 'index'])->name('frontend.index');
 
 Route::middleware(['web','auth'])->group(function () {
 
+    //export
     Route::get('category/export-collection/', [CategoryController::class, 'exportCollection'])->name('category.export_collection');
     Route::get('category/export-view/', [CategoryController::class, 'exportView'])->name('category.export_view');
+
+      // import
+    Route::get('category/import-excel/', [CategoryController::class, 'importExcel'])->name('category.import_excel');
+    Route::post('category/import', [CategoryController::class, 'import'])->name('category.import');
 
     // Category
     Route::get('category', [CategoryController::class, 'index'])->name('category.index');

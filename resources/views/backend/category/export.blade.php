@@ -5,7 +5,7 @@
             <th>Name</th>
             <th>Slug</th>
             <th>Rank</th>
-            <th>Created Date</th>
+            <th>Created By</th>
         </tr>
         </thead>
         <tbody>
@@ -14,7 +14,7 @@
                 <td>{{ $category->name }}</td>
                 <td>{{ $category->slug }}</td>
                 <td>{{ $category->rank }}</td>
-                <td>{{ $category->created_at->format('Y-m-d') }}</td>
+                <td>{{ $category->created_by }}</td>
             </tr>
         @endforeach
         </tbody>

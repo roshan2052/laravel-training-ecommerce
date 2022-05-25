@@ -2,23 +2,19 @@
 
 namespace App\Imports;
 
+use App\Models\Category;
 use App\Models\User;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
-class CategoryImport implements ToCollection
+class CategoryImport implements ToCollection,WithHeadingRow
 {
-    /**
-     * @param array $row
-     *
-     * @return User|null
-     */
     public function collection(Collection $rows)
     {
-        foreach ($rows as $row) 
+        foreach ($rows as $row)
         {
-            User::create([
-                'name' => $row[0],
-            ]);
+            Category::create($row->all());
         }
     }
 }
