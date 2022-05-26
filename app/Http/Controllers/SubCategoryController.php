@@ -24,7 +24,7 @@ class SubCategoryController extends BackendBaseController
 
         $data = [];
 
-        $data['rows'] = $this->model->latest()->get();
+        $data['rows'] = $this->model->with(['category','createdBy'])->latest()->get();
 
         return view($this->__loadDataToView($this->view_path . 'index'),compact('data'));
     }

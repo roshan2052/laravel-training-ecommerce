@@ -66,6 +66,11 @@ Route::middleware(['web','auth'])->group(function () {
     Route::delete('tags/{id}/destroy', [TagController::class, 'destroy'])->name('tags.destroy');
 
     // Attribites
+
+    Route::get('attributes/trash', [AttributeController::class,'trash'])->name('attributes.trash');
+    Route::get('attributes/restore/{id}', [AttributeController::class,'restore'])->name('attributes.restore');
+    Route::delete('attributes/force_delete/{id}', [AttributeController::class,'forceDelete'])->name('attributes.force_delete');
+    
     Route::get('attributes', [AttributeController::class, 'index'])->name('attributes.index');
     Route::get('attributes/create', [AttributeController::class, 'create'])->name('attributes.create');
     Route::post('attributes', [AttributeController::class, 'store'])->name('attributes.store');
@@ -73,6 +78,7 @@ Route::middleware(['web','auth'])->group(function () {
     Route::get('attributes/{id}/edit', [AttributeController::class, 'edit'])->name('attributes.edit');
     Route::put('attributes/{id}/update', [AttributeController::class, 'update'])->name('attributes.update');
     Route::delete('attributes/{id}/destroy', [AttributeController::class, 'destroy'])->name('attributes.destroy');
+
 
     //Product
     Route::get('product', [ProductController::class, 'index'])->name('product.index');

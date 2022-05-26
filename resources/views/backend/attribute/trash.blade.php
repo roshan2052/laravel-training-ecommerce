@@ -23,9 +23,8 @@
                         <i class="fas fa-pencil-alt"></i>
                         Create
                     </a>
-                    <a class="btn btn-danger btn-md float-right mr-2" href="{{ route($base_route.'trash') }}">
-                        <i class="fas fa-trash"></i>
-                        Trash
+                    <a class="btn btn-info btn-md mr-2 float-right" href="{{ route($base_route.'index') }}">
+                        <i class="fas fa-list"></i> List
                     </a>
                 </div>
                 <!-- /.card-header -->
@@ -35,6 +34,8 @@
                             <tr>
                                 <th>S.N</th>
                                 <th>Name</th>
+                                <th>Slug</th>
+                                <th>Image</th>
                                 <th>Created Date</th>
                                 <th>Action</th>
                             </tr>
@@ -45,22 +46,23 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $row->name }}</td>
+                                <td>{{ $row->slug }}</td>
+                                <td>
+                                    @if($row->image)
+                                        <img src="{{ asset($img_path.$row->image) }}" alt="image" class="img-fluid" width="100px" height="100px">
+                                    @else
+                                        {{ 'Image Not Available' }}
+                                    @endif
+                                    </td>
                                 <td>{{ $row->created_at }}</td>
                                 <td style="display:flex">
-                                    <a class="btn btn-primary btn-sm mr-2"
-                                        href="{{ route($base_route.'show', ['id' => $row->id]) }}">
-                                        <i class="fas fa-folder">
-                                        </i>
-                                        View
-                                    </a>
                                     <a class="btn btn-info btn-sm mr-2"
-                                        href="{{ route($base_route.'edit', ['id' => $row->id]) }}">
+                                        href="{{ route($base_route.'restore', ['id' => $row->id]) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
-                                        Edit
+                                        Restore
                                     </a>
-
-                                    <form action="{{ route($base_route.'destroy',['id' => $row->id]) }}" method="post">
+                                    <form action="{{ route($base_route.'force_delete',['id' => $row->id]) }}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger btn-sm delete-confirm" type="button">
