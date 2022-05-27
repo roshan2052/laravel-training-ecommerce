@@ -1,6 +1,6 @@
 <div class="card-body">
     <div class="form-group row mb-3">
-        {{ Form::label('name', 'Name *', ['class' => 'col-3 col-form-label']) }}
+        {{ Form::label('name', __('tag.name'), ['class' => 'col-3 col-form-label']) }}
         <div class="col-9">
             {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Name']) }}
             @include('backend.includes.validation_error_message',['fieldname' => 'name'])
@@ -17,7 +17,7 @@
 
     <div class="form-group row">
         <div class="col-3">
-            {{ Form::label('status', 'Status',["class" => "radiostatus"]) }}
+            {{ Form::label('status', __('common.status'),["class" => "radiostatus"]) }}
         </div>
         <div class="col-9">
             <label class="radio-inline">

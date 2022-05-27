@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('frontend.index');
 
 
-Route::middleware(['web','auth'])->group(function () {
+Route::middleware(['web','auth','localization'])->group(function () {
 
     //export
     Route::get('category/export-collection/', [CategoryController::class, 'exportCollection'])->name('category.export_collection');
@@ -70,7 +70,7 @@ Route::middleware(['web','auth'])->group(function () {
     Route::get('attributes/trash', [AttributeController::class,'trash'])->name('attributes.trash');
     Route::get('attributes/restore/{id}', [AttributeController::class,'restore'])->name('attributes.restore');
     Route::delete('attributes/force_delete/{id}', [AttributeController::class,'forceDelete'])->name('attributes.force_delete');
-    
+
     Route::get('attributes', [AttributeController::class, 'index'])->name('attributes.index');
     Route::get('attributes/create', [AttributeController::class, 'create'])->name('attributes.create');
     Route::post('attributes', [AttributeController::class, 'store'])->name('attributes.store');
@@ -106,3 +106,5 @@ Route::middleware(['web','auth'])->group(function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('lang/{lang}', [App\Http\Controllers\LanguageController::class, 'changeLang'])->name('lang.change');
