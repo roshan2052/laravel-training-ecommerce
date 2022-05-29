@@ -23,10 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', [HomeController::class, 'index'])->name('frontend.index');
-
-
-Route::middleware(['web','auth','localization'])->group(function () {
+Route::middleware(['web','auth','localization','is_admin'])->group(function () {
 
     //export
     Route::get('category/export-collection/', [CategoryController::class, 'exportCollection'])->name('category.export_collection');
@@ -101,10 +98,12 @@ Route::middleware(['web','auth','localization'])->group(function () {
     Route::post('user-profile/update-basic-info',[UserProfileController::class,'updateBasicInfo'])->name('user_profile.update_basic_info');
     Route::post('user-profile/update-password',[UserProfileController::class,'updatePassword'])->name('user_profile.update_password');
 
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('lang/{lang}', [App\Http\Controllers\LanguageController::class, 'changeLang'])->name('lang.change');
+
+Route::get('/', [HomeController::class, 'index'])->name('frontend.index');

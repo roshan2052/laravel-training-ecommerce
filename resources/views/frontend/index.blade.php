@@ -8,30 +8,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Place favicon.ico in the root directory -->
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/frontend/images/favicon.ico')}}">
+    <link rel="apple-touch-icon" href="{{asset('assets/frontend/apple-touch-icon.png')}}">
 
 
     <!-- All css files are included here. -->
     <!-- Bootstrap fremwork main css -->
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{asset('assets/frontend/css/bootstrap.min.css')}}">
     <!-- Owl Carousel main css -->
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{asset('assets/frontend/css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/frontend/css/owl.theme.default.min.css')}}">
     <!-- This core.css file contents all plugings css file. -->
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/core.css') }}">
+    <link rel="stylesheet" href="{{asset('assets/frontend/css/core.css')}}">
     <!-- Theme shortcodes/elements style -->
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/shortcode/shortcodes.css') }}">
+    <link rel="stylesheet" href="{{asset('assets/frontend/css/shortcode/shortcodes.css')}}">
     <!-- Theme main style -->
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css') }}">
+    <link rel="stylesheet" href="{{asset('assets/frontend/css/style.css')}}">
     <!-- Responsive css -->
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{asset('assets/frontend/css/responsive.css')}}">
     <!-- User style -->
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/custom.css') }}">
-
+    <link rel="stylesheet" href="{{asset('assets/frontend/css/custom.css')}}">
 
     <!-- Modernizr JS -->
-    <script src="{{  asset('assets/frontend/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+    <script src="{{asset('assets/frontend/js/vendor/modernizr-2.8.3.min.js')}}"></script>
 </head>
 
 <body>
@@ -50,7 +49,7 @@
                         <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
                             <div class="logo">
                                 <a href="index.html">
-                                    <img src="{{ asset('assets/frontend/images/logo/logo.png') }}" alt="logo">
+                                    <img src="{{asset('assets/frontend/images/logo/logo.png')}}" alt="logo">
                                 </a>
                             </div>
                         </div>
@@ -93,7 +92,7 @@
                                                     <li>
                                                         <div class="mega-item-img">
                                                             <a href="shop.html">
-                                                                <img src="{{ asset('assets/frontend/images/feature-img/3.png') }}" alt="">
+                                                                <img src="{{asset('assets/frontend/images/feature-img/3.png')}}" alt="">
                                                             </a>
                                                         </div>
                                                     </li>
@@ -162,7 +161,18 @@
                         <div class="col-md-2 col-sm-4 col-xs-3">
                             <ul class="menu-extra">
                                 <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
-                                <li><a href="login-register.html"><span class="ti-user"></span></a></li>
+                                <li>
+                                    @auth
+                                        <form action="{{ route('logout') }}" method="POST" id="logout-form">
+                                            @csrf
+                                        </form>
+                                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+                                    @else
+                                        <a href="#"><span class="ti-user" data-toggle="modal" data-target="#modal-default"></span>Login</a>
+                                    @endauth
+                                </li>
                                 <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
                                 <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>
                             </ul>
@@ -206,20 +216,20 @@
                     <div class="off__contact">
                         <div class="logo">
                             <a href="index.html">
-                                <img src="{{ asset('assets/frontend/images/logo/logo.png') }}" alt="logo">
+                                <img src="{{asset('assets/frontend/images/logo/logo.png')}}" alt="logo">
                             </a>
                         </div>
                         <p>Lorem ipsum dolor sit amet consectetu adipisicing elit sed do eiusmod tempor incididunt ut labore.</p>
                     </div>
                     <ul class="sidebar__thumd">
-                        <li><a href="#"><img src="{{ asset('assets/frontend/images/sidebar-img/1.jpg') }}" alt="sidebar images"></a></li>
-                        <li><a href="#"><img src="{{ asset('assets/frontend/images/sidebar-img/2.jpg') }}" alt="sidebar images"></a></li>
-                        <li><a href="#"><img src="{{ asset('assets/frontend/images/sidebar-img/3.jpg') }}" alt="sidebar images"></a></li>
-                        <li><a href="#"><img src="{{ asset('assets/frontend/images/sidebar-img/4.jpg') }}" alt="sidebar images"></a></li>
-                        <li><a href="#"><img src="{{ asset('assets/frontend/images/sidebar-img/5.jpg') }}" alt="sidebar images"></a></li>
-                        <li><a href="#"><img src="{{ asset('assets/frontend/images/sidebar-img/6.jpg') }}" alt="sidebar images"></a></li>
-                        <li><a href="#"><img src="{{ asset('assets/frontend/images/sidebar-img/7.jpg') }}" alt="sidebar images"></a></li>
-                        <li><a href="#"><img src="{{ asset('assets/frontend/images/sidebar-img/8.jpg') }}" alt="sidebar images"></a></li>
+                        <li><a href="#"><img src="{{asset('assets/frontend/images/sidebar-img/1.jpg')}}" alt="sidebar images"></a></li>
+                        <li><a href="#"><img src="{{asset('assets/frontend/images/sidebar-img/2.jpg')}}" alt="sidebar images"></a></li>
+                        <li><a href="#"><img src="{{asset('assets/frontend/images/sidebar-img/3.jpg')}}" alt="sidebar images"></a></li>
+                        <li><a href="#"><img src="{{asset('assets/frontend/images/sidebar-img/4.jpg')}}" alt="sidebar images"></a></li>
+                        <li><a href="#"><img src="{{asset('assets/frontend/images/sidebar-img/5.jpg')}}" alt="sidebar images"></a></li>
+                        <li><a href="#"><img src="{{asset('assets/frontend/images/sidebar-img/6.jpg')}}" alt="sidebar images"></a></li>
+                        <li><a href="#"><img src="{{asset('assets/frontend/images/sidebar-img/7.jpg')}}" alt="sidebar images"></a></li>
+                        <li><a href="#"><img src="{{asset('assets/frontend/images/sidebar-img/8.jpg')}}" alt="sidebar images"></a></li>
                     </ul>
                     <div class="offset__widget">
                         <div class="offset__single">
@@ -266,7 +276,7 @@
                         <div class="shp__single__product">
                             <div class="shp__pro__thumb">
                                 <a href="#">
-                                    <img src="{{ asset('assets/frontend/') }}images/product/sm-img/1.jpg" alt="product images">
+                                    <img src="{{asset('assets/frontend/images/product/sm-img/1.jpg')}}" alt="product images">
                                 </a>
                             </div>
                             <div class="shp__pro__details">
@@ -281,7 +291,7 @@
                         <div class="shp__single__product">
                             <div class="shp__pro__thumb">
                                 <a href="#">
-                                    <img src="{{ asset('assets/frontend/') }}images/product/sm-img/2.jpg" alt="product images">
+                                    <img src="{{asset('assets/frontend/images/product/sm-img/2.jpg')}}" alt="product images">
                                 </a>
                             </div>
                             <div class="shp__pro__details">
@@ -317,7 +327,7 @@
                         <div class="slider__container slider--one">
                             <div class="slider__activation__wrap owl-carousel owl-theme">
                                 <!-- Start Single Slide -->
-                                <div class="slide slider__full--screen slider-height-inherit slider-text-right" style="background: rgba(0, 0, 0, 0) url({{ asset('assets/frontend/images/slider/bg/1.png') }}) no-repeat scroll center center / cover ;">
+                                <div class="slide slider__full--screen slider-height-inherit slider-text-right" style="background: rgba(0, 0, 0, 0) url({{asset('assets/frontend/images/slider/bg/1.png')}}) no-repeat scroll center center / cover ;">
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-md-10 col-lg-8 col-md-offset-2 col-lg-offset-4 col-sm-12 col-xs-12">
@@ -333,7 +343,7 @@
                                 </div>
                                 <!-- End Single Slide -->
                                 <!-- Start Single Slide -->
-                                <div class="slide slider__full--screen slider-height-inherit  slider-text-left" style="background: rgba(0, 0, 0, 0) url({{ asset('assets/frontend/images/slider/bg/2.png') }}) no-repeat scroll center center / cover ;">
+                                <div class="slide slider__full--screen slider-height-inherit  slider-text-left" style="background: rgba(0, 0, 0, 0) url({{asset('assets/frontend/images/slider/bg/2.png')}}) no-repeat scroll center center / cover ;">
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
@@ -359,7 +369,7 @@
                             </div>
                             <div class="category-menu-list">
                                 <ul>
-                                    <li><a href="#"><img alt="" src="images/icons/thum2.png"> Women’s Clothing <i class="zmdi zmdi-chevron-right"></i></a>
+                                    <li><a href="#"><img alt="" src="{{asset('assets/frontend/images/icons/thum2.png')}}"> Women’s Clothing <i class="zmdi zmdi-chevron-right"></i></a>
                                         <div class="category-menu-dropdown">
                                             <div class="category-part-1 category-common mb--30">
                                                 <h4 class="categories-subtitle"> Jewelry & Watches</h4>
@@ -403,7 +413,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li><a href="#"><img alt="" src="images/icons/thum3.png"> Man Fashion <i class="zmdi zmdi-chevron-right"></i></a>
+                                    <li><a href="#"><img alt="" src="{{asset('assets/frontend/images/icons/thum3.png')}}"> Man Fashion <i class="zmdi zmdi-chevron-right"></i></a>
                                         <div class="category-menu-dropdown">
                                             <div class="category-part-1 category-common2 mb--30">
                                                 <h4 class="categories-subtitle"> Jewelry & Watches</h4>
@@ -437,12 +447,12 @@
                                             </div>
                                             <div class="mega-banner-img">
                                                 <a href="single-product.html">
-                                                    <img src="{{ asset('assets/frontend/') }}images/feature-img/5.jpg" alt="">
+                                                    <img src="{{asset('assets/frontend/images/feature-img/5.jpg')}}" alt="">
                                                 </a>
                                             </div>
                                         </div>
                                     </li>
-                                    <li><a href="#"><img alt="" src="images/icons/thum4.png"> Computer & Office <i class="zmdi zmdi-chevron-right"></i></a>
+                                    <li><a href="#"><img alt="" src="{{asset('assets/frontend/images/icons/thum4.png')}}"> Computer & Office <i class="zmdi zmdi-chevron-right"></i></a>
                                         <div class="category-menu-dropdown">
                                             <div class="category-menu-dropdown-top">
                                                 <div class="category-part-1 category-common2 mb--30">
@@ -478,21 +488,21 @@
                                             </div>
                                             <div class="category-menu-dropdown-bottom">
                                                 <div class="single-category-brand">
-                                                    <a href="#"><img src="{{ asset('assets/frontend/images/brand/6.png') }}" alt=""></a>
+                                                    <a href="#"><img src="{{asset('assets/frontend/images/brand/6.png')}}" alt=""></a>
                                                 </div>
                                                 <div class="single-category-brand">
-                                                    <a href="#"><img src="{{ asset('assets/frontend/images/brand/7.png') }}" alt=""></a>
+                                                    <a href="#"><img src="{{asset('assets/frontend/images/brand/7.png')}}" alt=""></a>
                                                 </div>
                                                 <div class="single-category-brand">
-                                                    <a href="#"><img src="{{ asset('assets/frontend/images/brand/8.png') }}" alt=""></a>
+                                                    <a href="#"><img src="{{asset('assets/frontend/images/brand/8.png')}}" alt=""></a>
                                                 </div>
                                                 <div class="single-category-brand">
-                                                    <a href="#"><img src="{{ asset('assets/frontend/images/brand/9.png') }}" alt=""></a>
+                                                    <a href="#"><img src="{{asset('assets/frontend/images/brand/9.png')}}" alt=""></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
-                                    <li><a href="#"><img alt="" src="images/icons/thum5.png"> Jewelry & Watches <i class="zmdi zmdi-chevron-right"></i></a>
+                                    <li><a href="#"><img alt="" src="{{asset('assets/frontend/images/icons/thum5.png')}}"> Jewelry & Watches <i class="zmdi zmdi-chevron-right"></i></a>
                                         <div class="category-menu-dropdown">
                                             <div class="category-menu-dropdown-left">
                                                 <div class="category-part-1 category-common mb--30">
@@ -538,12 +548,12 @@
                                             </div>
                                             <div class="category-menu-dropdown-right">
                                                 <div class="menu-right-img">
-                                                    <a href="#"><img src="{{ asset('assets/frontend/images/feature-img/2.png') }}" alt=""></a>
+                                                    <a href="#"><img src="{{asset('assets/frontend/images/feature-img/2.png')}}" alt=""></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
-                                    <li><a href="#"><img alt="" src="images/icons/thum6.png"> Men’s Clothing <i class="zmdi zmdi-chevron-right"></i></a>
+                                    <li><a href="#"><img alt="" src="{{asset('assets/frontend/images/icons/thum6.png')}}"> Men’s Clothing <i class="zmdi zmdi-chevron-right"></i></a>
                                         <div class="category-menu-dropdown">
                                             <div class="category-menu-dropdown-left">
                                                 <div class="category-part-1 category-common">
@@ -573,17 +583,17 @@
                                             </div>
                                             <div class="category-menu-dropdown-right">
                                                 <div class="menu-right-img">
-                                                    <a href="#"><img src="{{ asset('assets/frontend/images/feature-img/1.png') }}" alt=""></a>
+                                                    <a href="#"><img src="{{asset('assets/frontend/images/feature-img/1.png')}}" alt=""></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
-                                    <li><a href="#"><img alt="" src="images/icons/thum7.png"> Bags & Shoes</a></li>
-                                    <li><a href="#"><img alt="" src="images/icons/thum8.png"> Toys & Kids & Baby</a></li>
-                                    <li><a href="#"><img alt="" src="images/icons/thum9.png">  Automobiles </a></li>
-                                    <li><a href="#"><img alt="" src="images/icons/thum10.png"> Jewelry & Watches</a></li>
-                                    <li><a href="#"><img alt="" src="images/icons/thum2.png"> Consumer Electronics</a></li>
-                                    <li><a href="#"><img alt="" src="images/icons/thum3.png"> all Accessories</a></li>
+                                    <li><a href="#"><img alt="" src="{{asset('assets/frontend/images/icons/thum7.png')}}"> Bags & Shoes</a></li>
+                                    <li><a href="#"><img alt="" src="{{asset('assets/frontend/images/icons/thum8.png')}}"> Toys & Kids & Baby</a></li>
+                                    <li><a href="#"><img alt="" src="{{asset('assets/frontend/images/icons/thum9.png')}}">  Automobiles </a></li>
+                                    <li><a href="#"><img alt="" src="{{asset('assets/frontend/images/icons/thum10.png')}}"> Jewelry & Watches</a></li>
+                                    <li><a href="#"><img alt="" src="{{asset('assets/frontend/images/icons/thum2.png')}}"> Consumer Electronics</a></li>
+                                    <li><a href="#"><img alt="" src="{{asset('assets/frontend/images/icons/thum3.png')}}"> all Accessories</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -596,7 +606,7 @@
         <div class="only-banner ptb--100 bg__white">
             <div class="container">
                 <div class="only-banner-img">
-                    <a href="shop-sidebar.html"><img src="{{ asset('assets/frontend/images/new-product/3.jpg') }}" alt="new product"></a>
+                    <a href="shop-sidebar.html"><img src="{{asset('assets/frontend/images/new-product/3.jpg')}}" alt="new product"></a>
                 </div>
             </div>
         </div>
@@ -668,7 +678,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/1.png') }}" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/1.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -693,7 +703,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/2.png') }}" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/2.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -718,7 +728,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/3.png') }}" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/3.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -743,7 +753,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/4.png') }}" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/4.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -768,7 +778,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/5.png') }}" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/5.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -799,7 +809,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/4.png') }}" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/4.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -824,7 +834,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/5.png') }}" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/5.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -849,7 +859,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/6.png') }}" alt="product images">
+                                                                <img src="{{asset('assets/images/product/6.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -874,7 +884,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/7.png') }}" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/7.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -899,7 +909,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/8.png') }}" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/8.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -930,7 +940,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/2.png') }}" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/2.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -955,7 +965,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/1.png') }}" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/1.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -980,7 +990,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/5.png') }}" alt="product images">
+                                                                <img src="{{asset('assets/images/product/5.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1005,7 +1015,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/4.png') }}" alt="product images">
+                                                                <img src="{{asset('assets/images/product/4.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1030,7 +1040,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/3.png') }}" alt="product images">
+                                                                <img src="{{asset('asset/frontend/images/product/3.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1061,7 +1071,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="{{ asset('assets/frontend/images/product/9.png') }}" alt="product images">
+                                                                <img src="{{asset('asset/frontend/images/product/9.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1086,7 +1096,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/5.png" alt="product images">
+                                                                <img src="{{asset('asset/frontend/images/product/5.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1111,7 +1121,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/3.png" alt="product images">
+                                                                <img src="{{asset('asset/frontend/images/product/3.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1136,7 +1146,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/4.png" alt="product images">
+                                                                <img src="{{asset('asset/frontend/images/product/4.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1161,7 +1171,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/2.png" alt="product images">
+                                                                <img src="{{asset('asset/frontend/images/product/2.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1194,7 +1204,7 @@
         <div class="only-banner ptb--100 bg__white">
             <div class="container">
                 <div class="only-banner-img">
-                    <a href="shop-sidebar.html"><img src="images/new-product/6.jpg" alt="new product"></a>
+                    <a href="shop-sidebar.html"><img src="{{asset('assets/frontend/images/new-product/6.jpg')}}" alt="new product"></a>
                 </div>
             </div>
         </div>
@@ -1266,7 +1276,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/1.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/1.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1291,7 +1301,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/2.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/2.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1316,7 +1326,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/3.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/3.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1341,7 +1351,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/4.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/4.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1366,7 +1376,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/5.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/5.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1397,7 +1407,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/4.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/4.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1422,7 +1432,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/5.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/5.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1447,7 +1457,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/6.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/6.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1472,7 +1482,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/7.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/7.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1497,7 +1507,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/8.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/8.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1522,7 +1532,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/9.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/9.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1553,7 +1563,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/2.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/2.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1578,7 +1588,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/1.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/1.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1603,7 +1613,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/5.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/2.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1628,7 +1638,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/4.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/3.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1653,7 +1663,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/3.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/4.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1678,7 +1688,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/7.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/5.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1709,7 +1719,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/9.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/9.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1734,7 +1744,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/5.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/5.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1759,7 +1769,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/3.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/3.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1784,7 +1794,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/4.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/4.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1809,7 +1819,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/2.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/2.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1834,7 +1844,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/7.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/7.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1867,7 +1877,7 @@
         <div class="only-banner bg__white">
             <div class="container">
                 <div class="only-banner-img">
-                    <a href="shop-sidebar.html"><img src="images/new-product/7.jpg" alt="new product"></a>
+                    <a href="shop-sidebar.html"><img src="{{asset('assets/frontend/images/new-product/7.jpg')}}" alt="new product"></a>
                 </div>
             </div>
         </div>
@@ -1942,7 +1952,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/3.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/3.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1967,7 +1977,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/4.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/4.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -1992,7 +2002,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/5.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/5.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -2023,7 +2033,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/4.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/4.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -2048,7 +2058,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/5.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/5.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -2073,7 +2083,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/6.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/6.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -2104,7 +2114,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/2.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/2.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -2129,7 +2139,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/1.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/1.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -2154,7 +2164,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/5.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/5.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -2185,7 +2195,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/9.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/9.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -2210,7 +2220,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/8.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/8.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -2235,7 +2245,7 @@
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
                                                             <a href="#">
-                                                                <img src="images/product/7.png" alt="product images">
+                                                                <img src="{{asset('assets/frontend/images/product/7.png')}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
@@ -2284,7 +2294,7 @@
                                 <div class="blog__inner">
                                     <div class="blog__thumb">
                                         <a href="blog-details.html">
-                                            <img src="images/blog/blog-img/1.jpg" alt="blog images">
+                                            <img src="{{asset('assets/frontend/images/blog/blog-img/1.jpg')}}" alt="blog images">
                                         </a>
                                         <div class="blog__post__time">
                                             <div class="post__time--inner">
@@ -2315,7 +2325,7 @@
                                 <div class="blog__inner">
                                     <div class="blog__thumb">
                                         <a href="blog-details.html">
-                                            <img src="images/blog/blog-img/2.jpg" alt="blog images">
+                                            <img src="{{asset('assets/frontend/images/blog/blog-img/2.jpg')}}" alt="blog images">
                                         </a>
                                         <div class="blog__post__time">
                                             <div class="post__time--inner">
@@ -2346,7 +2356,7 @@
                                 <div class="blog__inner">
                                     <div class="blog__thumb">
                                         <a href="blog-details.html">
-                                            <img src="images/blog/blog-img/3.jpg" alt="blog images">
+                                            <img src="{{asset('assets/frontend/images/blog/blog-img/3.jpg')}}" alt="blog images">
                                         </a>
                                         <div class="blog__post__time">
                                             <div class="post__time--inner">
@@ -2386,7 +2396,7 @@
                             <div class="ft__widget">
                                 <div class="ft__logo">
                                     <a href="index.html">
-                                        <img src="images/logo/logo.png" alt="footer logo">
+                                        <img src="{{asset('assets/frontend/images/logo/logo.png')}}" alt="footer logo">
                                     </a>
                                 </div>
                                 <div class="footer-address">
@@ -2520,7 +2530,7 @@
                             <!-- Start product images -->
                             <div class="product-images">
                                 <div class="main-image images">
-                                    <img alt="big images" src="images/product/big-img/1.jpg">
+                                    <img alt="big images" src="{{asset('assets/frontend/images/product/big-img/1.jpg')}}">
                                 </div>
                             </div>
                             <!-- end product images -->
@@ -2589,21 +2599,24 @@
         </div>
         <!-- END Modal -->
     </div>
+
+    @include('frontend.includes.login')
+
     <!-- END QUICKVIEW PRODUCT -->
     <!-- Placed js at the end of the document so the pages load faster -->
 
     <!-- jquery latest version -->
-    <script src="{{ asset('assets/frontend/js/vendor/jquery-1.12.0.min.js') }}"></script>
+    <script src="{{asset('assets/frontend/js/vendor/jquery-1.12.0.min.js')}}"></script>
     <!-- Bootstrap framework js -->
-    <script src="{{ asset('assets/frontend/js/bootstrap.min.js') }}"></script>
+    <script src="{{asset('assets/frontend/js/bootstrap.min.js')}}"></script>
     <!-- All js plugins included in this file. -->
-    <script src="{{ asset('assets/frontend/js/plugins.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/slick.min.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/owl.carousel.min.js') }}"></script>
+    <script src="{{asset('assets/frontend/js/plugins.js')}}"></script>
+    <script src="{{asset('assets/frontend/js/slick.min.js')}}"></script>
+    <script src="{{asset('assets/frontend/js/owl.carousel.min.js')}}"></script>
     <!-- Waypoints.min.js. -->
-    <script src="{{ asset('assets/frontend/js/waypoints.min.js') }}"></script>
+    <script src="{{asset('assets/frontend/js/waypoints.min.js')}}"></script>
     <!-- Main js file that contents all jQuery plugins activation. -->
-    <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
+    <script src="{{asset('assets/frontend/js/main.js')}}"></script>
 
 </body>
 
