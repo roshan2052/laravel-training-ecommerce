@@ -17,4 +17,8 @@ class Category extends BackendBase
     //     return $this->name = strtolower($value);
     // }
 
+    public function subCategories(){
+        return $this->hasMany(SubCategory::class);
+    }
+
 }
