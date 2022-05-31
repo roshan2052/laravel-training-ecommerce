@@ -193,7 +193,7 @@
                                                 <h4 class="categories-subtitle">{{ $sub_category->name }}</h4>
                                                 <ul>
                                                     @foreach ($sub_category->products as $product)
-                                                    <li><a href="#">{{ $product->name }}</a></li>
+                                                    <li><a href="{{ route('product_details',['slug' => $product->slug]) }}">{{ $product->name }}</a></li>
                                                     @endforeach
                                                 </ul>
                                             </div>

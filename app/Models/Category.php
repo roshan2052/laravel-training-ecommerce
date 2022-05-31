@@ -17,6 +17,10 @@ class Category extends BackendBase
     //     return $this->name = strtolower($value);
     // }
 
+    public function activeSubCategories(){
+        return $this->hasMany(SubCategory::class)->where('status',0);
+    }
+
     public function subCategories(){
         return $this->hasMany(SubCategory::class);
     }

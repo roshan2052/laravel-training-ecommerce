@@ -103,7 +103,7 @@ class ProductController extends BackendBaseController
 
         $data['row'] =  $this->model->findorFail($id);
 
-        try{
+        // try{
             DB::beginTransaction();
 
             $request->request->add(['updated_by' => auth()->user()->id]);
@@ -112,24 +112,38 @@ class ProductController extends BackendBaseController
 
             $data['row']->tags()->sync($request['tag_id']);
 
-            // to update/create product attribute detail
+            // $product_attribute_detail_ids =  $data['row']->productAttributeDetails->pluck('id');
+
+            $product_attribute_details = ProductAttributeDetail::find($request['product_attribute_detail_id']);
+
+
             foreach($request['attribute_id'] as $index => $attribute_id){
-                ProductAttributeDetail::updateOrCreate([
-                    'product_id'        => $data['row']->id,
-                    'attribute_id'      => $attribute_id,
-                ],[
-                    'value'             => $request['attribute_value'][$index]
-                ]);
+
+                $product_attribute_detail = $product_attribute_details[$index] ?? false;
+
+                if($product_attribute_detail){
+                    $product_attribute_detail->update([
+                        'value'             => $request['attribute_value'][$index],
+                        'updated_by'        => auth()->user()->id
+                    ]);
+                }
+                else{
+                    ProductAttributeDetail::create([
+                        'product_id'        => $data['row']->id,
+                        'attribute_id'      => $attribute_id,
+                        'value'             => $request['attribute_value'][$index]
+                    ]);
+                }
             }
 
             DB::commit();
 
             session()->flash('success_message',$this->panel.' Updated Successfully');
-        }
-        catch(\Exception $e){
-            DB::rollback();
-            session()->flash('error_message','Something went wrong!');
-        }
+        // }
+        // catch(\Exception $e){
+        //     DB::rollback();
+        //     session()->flash('error_message','Something went wrong!');
+        // }
         return response()->json('Data Updated Successfully');
     }
 

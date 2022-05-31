@@ -111,6 +111,8 @@
                         <a class="btn btn-block btn-danger sa-warning remove_row "><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
+                {{ Form::hidden('product_attribute_detail_id[]', $product_attribute_detail->id) }}
+
             @endforeach
         @else
             <tr>
