@@ -110,8 +110,9 @@
                     <td>
                         <a class="btn btn-block btn-danger sa-warning remove_row "><i class="fa fa-trash"></i></a>
                     </td>
+
+                    {{ Form::hidden('product_attribute_detail_id[]', $product_attribute_detail->id) }}
                 </tr>
-                {{ Form::hidden('product_attribute_detail_id[]', $product_attribute_detail->id) }}
 
             @endforeach
         @else
@@ -124,17 +125,42 @@
                 <td>
                     {{ Form::text('attribute_value[]',null, ['class' => 'form-control', 'id' => 'stock', 'placeholder' => 'Enter Attribute Value']) }}
                 <td>
-                    <a class="btn btn-block btn-danger sa-warning remove_row "><i class="fa fa-trash"></i></a>
+                    <a class="btn btn-block btn-danger sa-warning remove_attribute"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         @endif
 
     </table>
+
     <button class="btn btn-info" type="button" id="addMoreAttribute" style="margin-bottom: 20px">
         <i class="fa fa-plus"></i>
         Add
     </button>
 
+    <table class="table table-striped table-bordered" id="image_wrapper">
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+
+        <tr>
+            <td>
+                {!! Form::file('image_field[]',null,['class' => 'form-control']) !!}
+            </td>
+            <td>
+                {{ Form::text('name[]',null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Enter Name']) }}
+            <td>
+                <a class="btn btn-block btn-danger sa-warning remove_image"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+
+    </table>
+
+    <button class="btn btn-info" type="button" id="addMoreImage" style="margin-bottom: 20px">
+        <i class="fa fa-plus"></i>
+        Add
+    </button>
 
 </div>
 <!-- /.card-body -->

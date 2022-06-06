@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Attribute extends BackendBase
 {
 
-    protected $fillable = ['name','status','created_by','updated_by'];
-    
+    protected $fillable = ['name','key','status','created_by','updated_by'];
+
     use HasFactory,SoftDeletes;
 
 }

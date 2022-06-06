@@ -6,6 +6,7 @@ use App\Http\Requests\AttributeRequest;
 use App\Models\Attribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class AttributeController extends BackendBaseController
 {
@@ -37,8 +38,10 @@ class AttributeController extends BackendBaseController
     }
 
     public function store(AttributeRequest $request){
-        try{
 
+        try{
+            $key = Str::slug($request['name'],'_');
+            $request->request->add(['key' => $key]);
             $request->request->add(['created_by' => auth()->user()->id]);
             $this->model->create($request->all());
             session()->flash('success_message', $this->panel.' Inserted Successfully');
@@ -71,6 +74,8 @@ class AttributeController extends BackendBaseController
         $data['row'] =  $this->model->findorFail($id);
 
         try{
+            $key = Str::slug($request['name'],'_');
+            $request->request->add(['key' => $key]);
             $request->request->add(['updated_by' => auth()->user()->id]);
             $data['row']->update($request->all());
             session()->flash('success_message',$this->panel.' Updated Successfully');

@@ -37,7 +37,7 @@
         }
         });
 
-        var y = 1;
+        var y = $('.remove_attribute').length;
         $('#addMoreAttribute').click(function(){
             var max_fields = 5;
             if (y < max_fields) { //max input box allowed
@@ -48,7 +48,7 @@
                     '   </td>'+
                     '   <td><input type="text" name="attribute_value[]" class="form-control" placeholder="Enter Attribute Value"/></td>'+
                     '   <td>'+
-                    '       <a class="btn btn-block btn-danger sa-warning remove_row"><i class="fa fa-trash"></i></a>'+
+                    '       <a class="btn btn-block btn-danger sa-warning remove_attribute"><i class="fa fa-trash"></i></a>'+
                     '   </td>'+
                     '</tr>'
                 );
@@ -58,9 +58,40 @@
             }
         });
 
-        $(document).on("click",".remove_row",function() {
+        $(document).on("click",".remove_attribute",function() {
             if(y > 1){
                 y--;
+                $(this).closest("tr").remove();
+            }else{
+                alert('Sorry you can\'t remove last row');
+            }
+        });
+
+        var z = 1;
+        $('#addMoreImage').click(function(){
+            var max_fields = 5;
+            if (z < max_fields) { //max input box allowed
+                z++;
+                $("#image_wrapper tr:last").after(
+                    '<tr>'+
+                    '   <td>{!! Form::file('image_field[]',null,['class' => 'form-control']) !!}'+
+                    '   </td>'+
+                    '   <td><input type="text" name="name[]" class="form-control" placeholder="Enter Name"/></td>'+
+                    '   <td>'+
+                    '       <a class="btn btn-block btn-danger sa-warning remove_image"><i class="fa fa-trash"></i></a>'+
+                    '   </td>'+
+                    '</tr>'
+                );
+            }
+            else{
+                alert('Maximum Attribute Limit is 5');
+            }
+        });
+
+
+        $(document).on("click",".remove_image",function() {
+            if(z > 1){
+                z--;
                 $(this).closest("tr").remove();
             }else{
                 alert('Sorry you can\'t remove last row');

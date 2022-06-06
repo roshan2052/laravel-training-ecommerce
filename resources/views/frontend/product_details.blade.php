@@ -242,22 +242,23 @@
                         </div>
                         <ul class="pro__dtl__prize">
                             <li class="old__prize">$15.21</li>
-                            <li>$10.00</li>
+                            <li>NPR. {{ $product->price }}</li>
                         </ul>
                         <div class="pro__dtl__color">
                             <h2 class="title__5">Choose Colour</h2>
+
                             <ul class="pro__choose__color">
-                                <li class="red"><a href="#"><i class="zmdi zmdi-circle"></i></a></li>
-                                <li class="blue"><a href="#"><i class="zmdi zmdi-circle"></i></a></li>
-                                <li class="perpal"><a href="#"><i class="zmdi zmdi-circle"></i></a></li>
-                                <li class="yellow"><a href="#"><i class="zmdi zmdi-circle"></i></a></li>
+                                @foreach($product->productAttributeDetails->where('attribute.key','color') as $product_attribute_detail)
+                                    <li class="{{ $product_attribute_detail->value }}"><a href="#"><i class="zmdi zmdi-circle"></i></a></li>
+                                @endforeach
                             </ul>
                         </div>
                         <div class="pro__dtl__size">
                             <h2 class="title__5">Size</h2>
                             <ul class="pro__choose__size">
-                                @foreach($product->productAttributeDetails->where('attribute_id',4) as $product_attribute_detail)
-                                <li><a href="#">{{ $product_attribute_detail->value }}</a></li>
+
+                                @foreach($product->productAttributeDetails->where('attribute.key','size') as $product_attribute_detail)
+                                    <li><a href="#">{{ $product_attribute_detail->value }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -267,7 +268,7 @@
                                 <form id='myform' method='POST' action='#'>
                                     <div class="product-quantity">
                                         <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="02">
+                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="{{ $product->stock }}">
                                         </div>
                                     </div>
                                 </form>
@@ -319,16 +320,7 @@
                             <div class="product__description__wrap">
                                 <div class="product__desc">
                                     <h2 class="title__6">Details</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis noexercit ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id.</p>
-                                </div>
-                                <div class="pro__feature">
-                                    <h2 class="title__6">Features</h2>
-                                    <ul class="feature__list">
-                                        <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Duis aute irure dolor in reprehenderit in voluptate velit esse</a></li>
-                                        <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Irure dolor in reprehenderit in voluptate velit esse</a></li>
-                                        <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Sed do eiusmod tempor incididunt ut labore et </a></li>
-                                        <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Nisi ut aliquip ex ea commodo consequat.</a></li>
-                                    </ul>
+                                    <p>{{ $product->description }}</p>
                                 </div>
                             </div>
                         </div>

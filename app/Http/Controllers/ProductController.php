@@ -112,10 +112,11 @@ class ProductController extends BackendBaseController
 
             $data['row']->tags()->sync($request['tag_id']);
 
-            // $product_attribute_detail_ids =  $data['row']->productAttributeDetails->pluck('id');
+            $data['row']->productAttributeDetails()
+                ->whereNotIn('id',$request['product_attribute_detail_id'])
+                ->delete();
 
             $product_attribute_details = ProductAttributeDetail::find($request['product_attribute_detail_id']);
-
 
             foreach($request['attribute_id'] as $index => $attribute_id){
 
