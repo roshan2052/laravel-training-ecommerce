@@ -144,16 +144,33 @@
             <th>Action</th>
         </tr>
 
-        <tr>
-            <td>
-                {!! Form::file('image_field[]',null,['class' => 'form-control']) !!}
-            </td>
-            <td>
-                {{ Form::text('name[]',null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Enter Name']) }}
-            <td>
-                <a class="btn btn-block btn-danger sa-warning remove_image"><i class="fa fa-trash"></i></a>
-            </td>
-        </tr>
+        @if(isset($data['row']))
+            @foreach($data['row']->productImageDetails as $product_image_detail)
+            <tr>
+                <td>
+                    {!! Form::file('image_field[]',null,['class' => 'form-control','id' => 'image_field']) !!}
+                    <img src="{{ asset($img_path.$product_image_detail->image) }}" alt="image" class="img-fluid" width="100px" height="100px">
+
+                </td>
+                <td>
+                    {{ Form::text('image_name[]',$product_image_detail->name, ['class' => 'form-control', 'id' => 'image_name', 'placeholder' => 'Enter Name']) }}
+                <td>
+                    <a class="btn btn-block btn-danger sa-warning remove_image"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+            @endforeach
+        @else
+            <tr>
+                <td>
+                    {!! Form::file('image_field[]',null,['class' => 'form-control','id' => 'image_field']) !!}
+                </td>
+                <td>
+                    {{ Form::text('image_name[]',null, ['class' => 'form-control', 'id' => 'image_name', 'placeholder' => 'Enter Name']) }}
+                <td>
+                    <a class="btn btn-block btn-danger sa-warning remove_image"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        @endif
 
     </table>
 

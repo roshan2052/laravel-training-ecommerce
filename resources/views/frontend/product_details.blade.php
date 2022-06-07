@@ -163,22 +163,22 @@
                         <ul class="product__small__images" role="tablist">
                             <li role="presentation" class="pot-small-img active">
                                 <a href="#img-tab-1" role="tab" data-toggle="tab">
-                                    <img src="images/product-details/small-img/1.jpg" alt="small-image">
+                                    <img src="{{ asset('assets/frontend/images/product-details/small-img/1.jpg') }}" alt="small-image">
                                 </a>
                             </li>
                             <li role="presentation" class="pot-small-img">
                                 <a href="#img-tab-2" role="tab" data-toggle="tab">
-                                    <img src="images/product-details/small-img/2.jpg" alt="small-image">
+                                    <img src="{{ asset('assets/frontend/images/product-details/small-img/2.jpg') }}" alt="small-image">
                                 </a>
                             </li>
                             <li role="presentation" class="pot-small-img hidden-xs">
                                 <a href="#img-tab-3" role="tab" data-toggle="tab">
-                                    <img src="images/product-details/small-img/3.jpg" alt="small-image">
+                                    <img src="{{ asset('assets/frontend/images/product-details/small-img/3.jpg') }}" alt="small-image">
                                 </a>
                             </li>
                             <li role="presentation" class="pot-small-img hidden-xs hidden-sm">
                                 <a href="#img-tab-4" role="tab" data-toggle="tab">
-                                    <img src="images/product-details/small-img/2.jpg" alt="small-image">
+                                    <img src="{{ asset('assets/frontend/images/product-details/small-img/2.jpg') }}" alt="small-image">
                                 </a>
                             </li>
                         </ul>
@@ -186,7 +186,7 @@
                         <div class="product__big__images">
                             <div class="portfolio-full-image tab-content">
                                 <div role="tabpanel" class="tab-pane fade in active product-video-position" id="img-tab-1">
-                                    <img src="images/product-details/big-img/10.jpg" alt="full-image">
+                                    <img src="{{ asset('assets/frontend/images/product-details/big-img/10.jpg') }}" alt="full-image">
                                     <div class="product-video">
                                         <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
                                             <i class="zmdi zmdi-videocam"></i> View Video
@@ -194,7 +194,7 @@
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade product-video-position" id="img-tab-2">
-                                    <img src="images/product-details/big-img/12.jpg" alt="full-image">
+                                    <img src="{{ asset('assets/frontend/images/product-details/big-img/12.jpg') }}" alt="full-image">
                                     <div class="product-video">
                                         <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
                                             <i class="zmdi zmdi-videocam"></i> View Video
@@ -202,7 +202,7 @@
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade product-video-position" id="img-tab-3">
-                                    <img src="images/product-details/big-img/11.jpg" alt="full-image">
+                                    <img src="{{ asset('assets/frontend/images/product-details/big-img/11.jpg') }}" alt="full-image">
                                     <div class="product-video">
                                         <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
                                             <i class="zmdi zmdi-videocam"></i> View Video
@@ -210,7 +210,7 @@
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade product-video-position" id="img-tab-4">
-                                    <img src="images/product-details/big-img/12.jpg" alt="full-image">
+                                    <img src="{{ asset('assets/frontend/images/product-details/big-img/12.jpg') }}" alt="full-image">
                                     <div class="product-video">
                                         <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
                                             <i class="zmdi zmdi-videocam"></i> View Video
@@ -241,7 +241,7 @@
                             <p>{{ $product->short_description }}</p>
                         </div>
                         <ul class="pro__dtl__prize">
-                            <li class="old__prize">$15.21</li>
+                            <li class="old__prize">NPR. 15.21</li>
                             <li>NPR. {{ $product->price }}</li>
                         </ul>
                         <div class="pro__dtl__color">

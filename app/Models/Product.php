@@ -26,4 +26,8 @@ class Product extends BackendBase
     public function productAttributeDetails(){
         return $this->hasMany(ProductAttributeDetail::class);
     }
+
+    public function productImageDetails(){
+        return $this->hasMany(ProductImageDetail::class);
+    }
 }

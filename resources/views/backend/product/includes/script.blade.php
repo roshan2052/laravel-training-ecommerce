@@ -76,7 +76,7 @@
                     '<tr>'+
                     '   <td>{!! Form::file('image_field[]',null,['class' => 'form-control']) !!}'+
                     '   </td>'+
-                    '   <td><input type="text" name="name[]" class="form-control" placeholder="Enter Name"/></td>'+
+                    '   <td><input type="text" name="image_name[]" class="form-control" placeholder="Enter Name"/></td>'+
                     '   <td>'+
                     '       <a class="btn btn-block btn-danger sa-warning remove_image"><i class="fa fa-trash"></i></a>'+
                     '   </td>'+
@@ -98,40 +98,39 @@
             }
         });
 
-    //form submit
-    $('form#main_form').on('submit', function(event) {
-      event.preventDefault();
+        //form submit
+        $('form#main_form').on('submit', function(event) {
+            event.preventDefault();
 
-      let route = $(this).attr('action');
-      let method = $(this).attr('method');
-      let data = new FormData(this);
+            let route = $(this).attr('action');
+            let method = $(this).attr('method');
+            let data = new FormData(this);
 
-      $.ajax({
-        url: route,
-        data: data,
-        method: method,
-        dataType: "JSON",
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function(res) {
-          window.location.href = "{{route($base_route.'index')}}";
-        },
-        error: function(err) {
-          $('span.text-danger').remove();
-          if (err.responseJSON.errors) {
-            $.each(err.responseJSON.errors, function(key, value) {
-              let splitted_key = key.split('.');
-              if (splitted_key.length > 1) {
-                $("<span class='text-danger'>" + value + "<br></span>").insertAfter($("[name='" + splitted_key[0] + "[]']")[splitted_key[1]]);
-              }
-              $('#' + key).after("<span class='text-danger'>" + value + "<br></span>");
+            $.ajax({
+                url: route,
+                data: data,
+                method: method,
+                dataType: "JSON",
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(res) {
+                window.location.href = "{{route($base_route.'index')}}";
+                },
+                error: function(err) {
+                    $('span.text-danger').remove();
+                    if (err.responseJSON.errors) {
+                        $.each(err.responseJSON.errors, function(key, value) {
+                        let splitted_key = key.split('.');
+                        if (splitted_key.length > 1) {
+                            $("<span class='text-danger'>" + value + "<br></span>").insertAfter($("[name='" + splitted_key[0] + "[]']")[splitted_key[1]]);
+                        }
+                        $('#' + key).after("<span class='text-danger'>" + value + "<br></span>");
+                        });
+                    }
+                },
             });
-          }
-        },
-      });
-    });
-
+        });
 
     });
 

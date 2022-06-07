@@ -34,6 +34,10 @@ class ProductRequest extends FormRequest
             'attribute_value'   => 'required|array',
             'attribute_value.*' => 'required',
             'price'             => 'required|min:0',
+            'image_field'       => 'required|array',
+            'image_field.*'     => 'mimes:jpeg,jpg,png,gif|required|max:2048',
+            'image_name'        => 'required|array',
+            'image_name.*'      => 'required',
         ];
     }
 
@@ -44,6 +48,7 @@ class ProductRequest extends FormRequest
             'subcategory_id.required'       => 'Please Select Subcategory',
             'attribute_id.*.required'       => 'Please Select Attribute',
             'attribute_value.*.required'    => 'Please Enter Attribute Value',
+            'image_name.*.required'         => 'Please Enter Image Name',
         ];
     }
 

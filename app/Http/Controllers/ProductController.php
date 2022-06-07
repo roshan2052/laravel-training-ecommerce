@@ -8,6 +8,7 @@ use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductAttributeDetail;
+use App\Models\ProductImageDetail;
 use App\Models\SubCategory;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -48,7 +49,8 @@ class ProductController extends BackendBaseController
 
     public function store(ProductRequest $request){
 
-        try{
+        // try{
+
             DB::beginTransaction();
 
             $request->request->add(['created_by' => auth()->user()->id]);
@@ -68,14 +70,26 @@ class ProductController extends BackendBaseController
                 ]);
             }
 
+            foreach($request['image_field'] as $index => $image){
+                if ($request->hasFile('image_field')) {
+                    $image_name = time().rand().'_'.$image->getClientOriginalName();
+                    $image->move($this->img_path, $image_name);
+                    ProductImageDetail::create([
+                        'product_id'    => $product->id,
+                        'name'          => $request['image_name'][$index],
+                        'image'         => $image_name,
+                    ]);
+                }
+            }
+
             DB::commit();
 
             session()->flash('success_message', $this->panel.' Inserted Successfully');
-        }
-        catch(\Exception $e){
-            DB::rollback();
-            session()->flash('error_message',$e->getMessage());
-        }
+        // }
+        // catch(\Exception $e){
+        //     DB::rollback();
+        //     session()->flash('error_message',$e->getMessage());
+        // }
 
         return response()->json('Data sucessfully inserted');
     }
