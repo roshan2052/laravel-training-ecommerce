@@ -30,4 +30,8 @@ class Product extends BackendBase
     public function productImageDetails(){
         return $this->hasMany(ProductImageDetail::class);
     }
+
+    public function productReviews(){
+        return $this->hasMany(ProductReview::class);
+    }
 }

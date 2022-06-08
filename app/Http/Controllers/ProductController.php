@@ -13,6 +13,7 @@ use App\Models\SubCategory;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ProductController extends BackendBaseController
 {
@@ -74,6 +75,15 @@ class ProductController extends BackendBaseController
                 if ($request->hasFile('image_field')) {
                     $image_name = time().rand().'_'.$image->getClientOriginalName();
                     $image->move($this->img_path, $image_name);
+
+                    //Image Resize
+                    if($dimensions = config('image_dimension.product.image')){
+                        foreach($dimensions as $dimension){
+                            $image = Image::make($this->img_path. $image_name)->resize($dimension['width'], $dimension['height']);
+                            $image->save($this->img_path.$dimension['width'].'_'.$dimension['height'].'_'. $image_name);
+                        }
+                    }
+
                     ProductImageDetail::create([
                         'product_id'    => $product->id,
                         'name'          => $request['image_name'][$index],
@@ -169,7 +179,8 @@ class ProductController extends BackendBaseController
         try{
             DB::beginTransaction();
             $data['row']->tags()->detach();
-            $data['row']->productAttributeDetails->each->delete();
+            $data['row']->productAttributeDetails()->delete();
+            $data['row']->productImageDetails()->delete();
             $data['row']->delete();
             DB::commit();
             session()->flash('success_message',$this->panel.' Deleted Successfully');

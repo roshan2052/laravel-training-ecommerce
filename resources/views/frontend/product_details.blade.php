@@ -344,60 +344,62 @@
                         <!-- Start Single Content -->
                         <div role="tabpanel" id="reviews" class="product__tab__content fade">
                             <div class="review__address__inner">
+
                                 <!-- Start Single Review -->
-                                <div class="pro__review">
-                                    <div class="review__thumb">
-                                        <img src="images/review/1.jpg" alt="review images">
+                                @foreach ($product->productReviews as $product_review)
+
+                                    <div class="pro__review">
+                                        <div class="review__thumb">
+                                            <img src="images/review/1.jpg" alt="review images">
+                                        </div>
+                                        <div class="review__details">
+                                            <div class="review__info">
+                                                <h4><a href="#">{{ $product_review->user->name }}</a></h4>
+                                                <div class="rating__send">
+                                                    <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
+                                                    <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="review__date">
+                                                <span>{{ $product_review->created_at->diffForHumans() }}</span>
+                                            </div>
+                                            <p>{{ $product_review->comment }}</p>
+                                        </div>
                                     </div>
-                                    <div class="review__details">
-                                        <div class="review__info">
-                                            <h4><a href="#">Gerald Barnes</a></h4>
-                                            <ul class="rating">
-                                                <li><i class="zmdi zmdi-star"></i></li>
-                                                <li><i class="zmdi zmdi-star"></i></li>
-                                                <li><i class="zmdi zmdi-star"></i></li>
-                                                <li><i class="zmdi zmdi-star-half"></i></li>
-                                                <li><i class="zmdi zmdi-star-half"></i></li>
-                                            </ul>
-                                            <div class="rating__send">
-                                                <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                    <!-- End Single Review -->
+                                    <!-- Start Single Review -->
+
+                                    @foreach ($product_review->productReviewReplies as $product_review_reply)
+                                        <div class="pro__review ans">
+                                            <div class="review__thumb">
+                                                <img src="images/review/2.jpg" alt="review images">
+                                            </div>
+                                            <div class="review__details">
+                                                <div class="review__info">
+                                                    <h4><a href="#">{{ $product_review_reply->user->name }}</a></h4>
+                                                    <ul class="rating">
+                                                        <li><i class="zmdi zmdi-star"></i></li>
+                                                        <li><i class="zmdi zmdi-star"></i></li>
+                                                        <li><i class="zmdi zmdi-star"></i></li>
+                                                        <li><i class="zmdi zmdi-star-half"></i></li>
+                                                        <li><i class="zmdi zmdi-star-half"></i></li>
+                                                    </ul>
+                                                    <div class="rating__send">
+                                                        <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
+                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="review__date">
+                                                    <span>{{ $product_review_reply->created_at->diffForHumans() }}</span>
+                                                </div>
+                                                <p>{{ $product_review_reply->comment }}</p>
                                             </div>
                                         </div>
-                                        <div class="review__date">
-                                            <span>27 Jun, 2016 at 2:30pm</span>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at estei to bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
-                                    </div>
-                                </div>
+                                    @endforeach
+
+                                @endforeach
                                 <!-- End Single Review -->
-                                <!-- Start Single Review -->
-                                <div class="pro__review ans">
-                                    <div class="review__thumb">
-                                        <img src="images/review/2.jpg" alt="review images">
-                                    </div>
-                                    <div class="review__details">
-                                        <div class="review__info">
-                                            <h4><a href="#">Gerald Barnes</a></h4>
-                                            <ul class="rating">
-                                                <li><i class="zmdi zmdi-star"></i></li>
-                                                <li><i class="zmdi zmdi-star"></i></li>
-                                                <li><i class="zmdi zmdi-star"></i></li>
-                                                <li><i class="zmdi zmdi-star-half"></i></li>
-                                                <li><i class="zmdi zmdi-star-half"></i></li>
-                                            </ul>
-                                            <div class="rating__send">
-                                                <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="review__date">
-                                            <span>27 Jun, 2016 at 2:30pm</span>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at estei to bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
-                                    </div>
-                                </div>
-                                <!-- End Single Review -->
+
                             </div>
                             <!-- Start RAting Area -->
                             <div class="rating__wrap">
