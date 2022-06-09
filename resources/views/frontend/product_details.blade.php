@@ -350,7 +350,11 @@
 
                                     <div class="pro__review">
                                         <div class="review__thumb">
-                                            <img src="images/review/1.jpg" alt="review images">
+                                            @if (optional($product_review->user->userProfile)->image)
+                                                <img src="{{ asset('images/user_profile/'.$product_review->user->userProfile->image) }}" alt="review images">
+                                            @else
+                                                <img src="{{ asset('assets/frontend/images/review/1.jpg') }}" alt="review images">
+                                            @endif
                                         </div>
                                         <div class="review__details">
                                             <div class="review__info">
@@ -365,14 +369,33 @@
                                             </div>
                                             <p>{{ $product_review->comment }}</p>
                                         </div>
+
                                     </div>
+                                    <div>
+                                        <form action="#" method="post">
+                                            @csrf
+                                            <div class="single-review-form">
+                                                <div class="review-box message">
+                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                    <textarea name="comment" placeholder="Write your review reply"></textarea>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    @if(!$product_review->productReviewReplies()->exists())
+                                        <hr>
+                                    @endif
                                     <!-- End Single Review -->
                                     <!-- Start Single Review -->
 
                                     @foreach ($product_review->productReviewReplies as $product_review_reply)
                                         <div class="pro__review ans">
                                             <div class="review__thumb">
-                                                <img src="images/review/2.jpg" alt="review images">
+                                                @if (optional($product_review_reply->user->userProfile)->image)
+                                                    <img src="{{ asset('images/user_profile/'.$product_review_reply->user->userProfile->image) }}" alt="review images">
+                                                @else
+                                                    <img src="{{ asset('assets/frontend/images/review/2.jpg') }}" alt="review images">
+                                                @endif
                                             </div>
                                             <div class="review__details">
                                                 <div class="review__info">
@@ -385,7 +408,6 @@
                                                         <li><i class="zmdi zmdi-star-half"></i></li>
                                                     </ul>
                                                     <div class="rating__send">
-                                                        <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
                                                         <a href="#"><i class="zmdi zmdi-close"></i></a>
                                                     </div>
                                                 </div>
@@ -395,73 +417,33 @@
                                                 <p>{{ $product_review_reply->comment }}</p>
                                             </div>
                                         </div>
+                                        @if($loop->last)
+                                            <hr>
+                                        @endif
                                     @endforeach
 
                                 @endforeach
                                 <!-- End Single Review -->
 
                             </div>
-                            <!-- Start RAting Area -->
-                            <div class="rating__wrap">
-                                <h2 class="rating-title">Write  A review</h2>
-                                <h4 class="rating-title-2">Your Rating</h4>
-                                <div class="rating__list">
-                                    <!-- Start Single List -->
-                                    <ul class="rating">
-                                        <li><i class="zmdi zmdi-star-half"></i></li>
-                                    </ul>
-                                    <!-- End Single List -->
-                                    <!-- Start Single List -->
-                                    <ul class="rating">
-                                        <li><i class="zmdi zmdi-star-half"></i></li>
-                                        <li><i class="zmdi zmdi-star-half"></i></li>
-                                    </ul>
-                                    <!-- End Single List -->
-                                    <!-- Start Single List -->
-                                    <ul class="rating">
-                                        <li><i class="zmdi zmdi-star-half"></i></li>
-                                        <li><i class="zmdi zmdi-star-half"></i></li>
-                                        <li><i class="zmdi zmdi-star-half"></i></li>
-                                    </ul>
-                                    <!-- End Single List -->
-                                    <!-- Start Single List -->
-                                    <ul class="rating">
-                                        <li><i class="zmdi zmdi-star-half"></i></li>
-                                        <li><i class="zmdi zmdi-star-half"></i></li>
-                                        <li><i class="zmdi zmdi-star-half"></i></li>
-                                        <li><i class="zmdi zmdi-star-half"></i></li>
-                                    </ul>
-                                    <!-- End Single List -->
-                                    <!-- Start Single List -->
-                                    <ul class="rating">
-                                        <li><i class="zmdi zmdi-star-half"></i></li>
-                                        <li><i class="zmdi zmdi-star-half"></i></li>
-                                        <li><i class="zmdi zmdi-star-half"></i></li>
-                                        <li><i class="zmdi zmdi-star-half"></i></li>
-                                        <li><i class="zmdi zmdi-star-half"></i></li>
-                                    </ul>
-                                    <!-- End Single List -->
-                                </div>
                             </div>
                             <!-- End RAting Area -->
+
                             <div class="review__box">
-                                <form id="review-form">
-                                    <div class="single-review-form">
-                                        <div class="review-box name">
-                                            <input type="text" placeholder="Type your name">
-                                            <input type="email" placeholder="Type your email">
-                                        </div>
-                                    </div>
+                                <form action="{{ route('product.store_review') }}" method="post" id="review_form">
+                                    @csrf
                                     <div class="single-review-form">
                                         <div class="review-box message">
-                                            <textarea placeholder="Write your review"></textarea>
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <textarea name="comment" placeholder="Write your review"></textarea>
                                         </div>
                                     </div>
                                     <div class="review-btn">
-                                        <a class="fv-btn" href="#">submit review</a>
+                                        <button type="button" class="fv-btn" id="submit_review">Submit Review</a>
                                     </div>
                                 </form>
                             </div>
+
                         </div>
                         <!-- End Single Content -->
                     </div>
@@ -471,3 +453,19 @@
     </section>
 @endsection
 
+@section('js')
+    <script>
+        $( document ).ready(function() {
+
+            $('#submit_review').click(function(){
+                if(!'{{ auth()->user() }}'){
+                    $('#loginModal').modal('show');
+                }
+                else{
+                    $('#review_form').submit();
+                }
+            });
+
+        });
+    </script>
+@endsection

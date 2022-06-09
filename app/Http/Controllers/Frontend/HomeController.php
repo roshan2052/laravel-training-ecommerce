@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductReview;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -31,6 +33,17 @@ class HomeController extends Controller
         $product = Product::where('slug',$slug)->first();
 
         return view($this->view_path . 'product_details',compact('product'));
+    }
+
+    public function storeReview(Request $request){
+        $request->validate([
+            'comment' => 'required',
+        ]);
+
+        $request->request->add(['user_id' => auth()->user()->id]);
+        ProductReview::create($request->all());
+        return back();
+
     }
 
 }

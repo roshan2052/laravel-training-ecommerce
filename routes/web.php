@@ -108,4 +108,6 @@ Route::get('lang/{lang}', [App\Http\Controllers\LanguageController::class, 'chan
 
 Route::get('/', [HomeController::class, 'index'])->name('frontend.index');
 
-Route::get('/product/{slug}', [HomeController::class, 'productDetails'])->name('product_details');
+Route::get('product/{slug}', [HomeController::class, 'productDetails'])->name('product_details');
+
+Route::post('product/store-review', [HomeController::class, 'storeReview'])->name('product.store_review');
