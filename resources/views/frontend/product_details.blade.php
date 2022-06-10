@@ -348,29 +348,8 @@
                                 <!-- Start Single Review -->
                                 @foreach ($product->productReviews as $product_review)
 
-                                    <div class="pro__review">
-                                        <div class="review__thumb">
-                                            @if (optional($product_review->user->userProfile)->image)
-                                                <img src="{{ asset('images/user_profile/'.$product_review->user->userProfile->image) }}" alt="review images">
-                                            @else
-                                                <img src="{{ asset('assets/frontend/images/review/1.jpg') }}" alt="review images">
-                                            @endif
-                                        </div>
-                                        <div class="review__details">
-                                            <div class="review__info">
-                                                <h4><a href="#">{{ $product_review->user->name }}</a></h4>
-                                                <div class="rating__send">
-                                                    <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                </div>
-                                            </div>
-                                            <div class="review__date">
-                                                <span>{{ $product_review->created_at->diffForHumans() }}</span>
-                                            </div>
-                                            <p>{{ $product_review->comment }}</p>
-                                        </div>
+                                    @include('frontend.product.product_review',['product_review' => $product_review])
 
-                                    </div>
                                     <div>
                                         <form action="#" method="post">
                                             @csrf
@@ -465,6 +444,43 @@
                     $('#review_form').submit();
                 }
             });
+
+
+        //form submit
+        $('form#review_form').on('submit', function(event) {
+            event.preventDefault();
+
+            let route = $(this).attr('action');
+            let method = $(this).attr('method');
+            let data = new FormData(this);
+
+            $.ajax({
+                url: route,
+                data: data,
+                method: method,
+                dataType: "JSON",
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(res) {
+                    let product_review_html = res.product_review_html;
+                    $('.review__address__inner').append(product_review_html);
+                },
+                error: function(err) {
+                    $('span.text-danger').remove();
+                    if (err.responseJSON.errors) {
+                        $.each(err.responseJSON.errors, function(key, value) {
+                        let splitted_key = key.split('.');
+                        if (splitted_key.length > 1) {
+                            $("<span class='text-danger'>" + value + "<br></span>").insertAfter($("[name='" + splitted_key[0] + "[]']")[splitted_key[1]]);
+                        }
+                        $('#' + key).after("<span class='text-danger'>" + value + "<br></span>");
+                        });
+                    }
+                },
+            });
+        });
+
 
         });
     </script>

@@ -99,7 +99,7 @@ Route::middleware(['web','auth','localization','is_admin'])->prefix('backend/')-
     Route::post('user-profile/update-password',[UserProfileController::class,'updatePassword'])->name('user_profile.update_password');
 
 });
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('is_admin','auth');
 
 Auth::routes();
 
