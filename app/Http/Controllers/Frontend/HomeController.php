@@ -49,4 +49,11 @@ class HomeController extends Controller
 
     }
 
+    public function addToCart(){
+
+        $data = [];
+        return view($this->view_path . 'product.cart',compact('data'));
+
+    }
+
 }

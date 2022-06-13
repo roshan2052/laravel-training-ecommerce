@@ -49,4 +49,8 @@ class User extends Authenticatable
     public function getNameAttribute($value){
         return $this->name = ucwords($value);
     }
+
+    public function carts(){
+        return $this->hasMany(Cart::class);
+    }
 }
