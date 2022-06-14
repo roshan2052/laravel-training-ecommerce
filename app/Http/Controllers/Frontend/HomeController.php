@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductReview;
@@ -49,11 +50,24 @@ class HomeController extends Controller
 
     }
 
-    public function addToCart(){
+    public function cart(){
 
-        $data = [];
-        return view($this->view_path . 'product.cart',compact('data'));
+        return view($this->view_path . 'product.cart');
+    }
 
+    public function addToCart(Request $request){
+
+        $product = Product::find($request['product_id']);
+
+        Cart::create([
+            'product_id'    => $request['product_id'],
+            'price'         => $product->price,
+            'quantity'      => $request['quantity'],
+            'grand_total'   => $product->price * $request['quantity'],
+            'user_id'       => auth()->id(),
+        ]);
+
+        return to_route('product.cart');
     }
 
 }

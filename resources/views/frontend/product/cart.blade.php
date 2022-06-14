@@ -211,20 +211,20 @@
                                         <tbody>
                                             <tr class="cart-subtotal">
                                                 <th>Subtotal</th>
-                                                <td><span class="amount">£215.00</span></td>
+                                                <td><span class="amount">Rs. {{ auth()->user()->carts()->sum('grand_total') }}</span></td>
                                             </tr>
                                             <tr class="shipping">
                                                 <th>Shipping</th>
                                                 <td>
                                                     <ul id="shipping_method">
                                                         <li>
-                                                            <input type="radio" />
+                                                            <input type="radio" name="shipping" value="flat">
                                                             <label>
-                                                                Flat Rate: <span class="amount">£7.00</span>
+                                                                Flat Rate: <span class="amount">Rs. 50.00</span>
                                                             </label>
                                                         </li>
                                                         <li>
-                                                            <input type="radio" />
+                                                            <input type="radio" name="shipping" value="free" checked>
                                                             <label>
                                                                 Free Shipping
                                                             </label>
@@ -237,7 +237,7 @@
                                             <tr class="order-total">
                                                 <th>Total</th>
                                                 <td>
-                                                    <strong><span class="amount">£215.00</span></strong>
+                                                    <strong><span class="amount">Rs. {{ auth()->user()->carts()->sum('grand_total') }}</span></strong>
                                                 </td>
                                             </tr>
                                         </tbody>

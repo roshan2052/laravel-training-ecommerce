@@ -1,5 +1,5 @@
 <div class="card-body">
-    
+
     <div class="form-group row mb-3">
         {{ Form::label('name', 'Name *', ['class' => 'col-3 col-form-label']) }}
         <div class="col-9">
@@ -72,6 +72,22 @@
         <div class="col-9">
             {{ Form::url('twitter_link', null, ['class' => 'form-control', 'id' => 'twitter_link', 'placeholder' => 'Twitter Link']) }}
             @include('backend.includes.validation_error_message',['fieldname' => 'twitter_link'])
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        {{ Form::label('shipping_type', 'Shipping Type', ['class' => 'col-3 col-form-label']) }}
+        <div class="col-9">
+            {{ Form::select('shipping_type', $data['shipping_types'], null, ['class' => 'form-control', 'id' => 'shipping_type', 'placeholder' => 'Shipping Type']) }}
+            @include('backend.includes.validation_error_message',['fieldname' => 'shipping_type'])
+        </div>
+    </div>
+
+    <div class="form-group row mb-3" style="display:none">
+        {{ Form::label('value', 'Value', ['class' => 'col-3 col-form-label']) }}
+        <div class="col-9">
+            {{ Form::number('value', null, ['class' => 'form-control', 'id' => 'value', 'placeholder' => 'Value']) }}
+            @include('backend.includes.validation_error_message',['fieldname' => 'value'])
         </div>
     </div>
 

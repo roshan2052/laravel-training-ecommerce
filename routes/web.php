@@ -108,7 +108,9 @@ Route::get('lang/{lang}', [App\Http\Controllers\LanguageController::class, 'chan
 
 Route::get('/', [HomeController::class, 'index'])->name('frontend.index');
 
-Route::get('product/cart', [HomeController::class, 'addToCart'])->name('product.cart');
+Route::post('product/add-to-cart', [HomeController::class, 'addToCart'])->name('product.add_to_cart')->middleware('auth');
+
+Route::get('product/cart', [HomeController::class, 'cart'])->name('product.cart')->middleware('auth');
 
 Route::get('product/{slug}', [HomeController::class, 'productDetails'])->name('product_details');
 

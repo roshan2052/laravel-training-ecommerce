@@ -262,23 +262,25 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <div class="product-action-wrap">
-                            <div class="prodict-statas"><span>Quantity :</span></div>
-                            <div class="product-quantity">
-                                <form id='myform' method='POST' action='#'>
+                        <form method="post" action="{{ route('product.add_to_cart') }}">
+                            @csrf
+                            <div class="product-action-wrap">
+                                <div class="prodict-statas"><span>Quantity :</span></div>
+                                <div class="product-quantity">
                                     <div class="product-quantity">
                                         <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="{{ $product->stock }}">
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <input class="cart-plus-minus-box" type="text" name="quantity" value="1">
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
-                        </div>
-                        <ul class="pro__dtl__btn">
-                            <li class="buy__now__btn"><a href="#">buy now</a></li>
-                            <li><a href="#"><span class="ti-heart"></span></a></li>
-                            <li><a href="#"><span class="ti-email"></span></a></li>
-                        </ul>
+                            <ul class="pro__dtl__btn">
+                                <li class="buy__now__btn"><button type="submit">buy now</a></li>
+                                <li><a href="#"><span class="ti-heart"></span></a></li>
+                                <li><a href="#"><span class="ti-email"></span></a></li>
+                            </ul>
+                        </form>
                         <div class="pro__social__share">
                             <h2>Share :</h2>
                             <ul class="pro__soaial__link">

@@ -11,5 +11,5 @@ class Setting extends BackendBase
 
     protected $table = 'settings';
 
-    protected $fillable = ['name','address','email','phone','website','logo','fav_icon','facebook_link','twitter_link','youtube_link','instagram_link','google_map','created_by'];
+    protected $fillable = ['name','address','email','phone','website','logo','fav_icon','facebook_link','twitter_link','youtube_link','instagram_link','google_map','shipping_type','value','created_by'];
 }

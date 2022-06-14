@@ -23,9 +23,16 @@ class SettingController extends BackendBaseController
         $this->model = new Setting;
     }
 
+    public function commonData(){
+        $data = [];
+        $data['shipping_types'] = ['Flat','Percentage','Free'];
+        
+        return $data;
+    }
+
     public function create(){
 
-        $data = [];
+        $data = $this->commonData();
 
         $setting = $this->model->first();
 
@@ -55,7 +62,8 @@ class SettingController extends BackendBaseController
 
 
     public function edit($id){
-        $data = [];
+
+        $data = $this->commonData();
 
         $data['row'] =  $this->model->findorFail($id);
 
