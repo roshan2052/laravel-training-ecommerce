@@ -3,6 +3,7 @@
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubCategoryController;
@@ -97,6 +98,15 @@ Route::middleware(['web','auth','localization','is_admin'])->prefix('backend/')-
     Route::get('user-profile/create',[UserProfileController::class, 'create'])->name('user_profile.create');
     Route::post('user-profile/update-basic-info',[UserProfileController::class,'updateBasicInfo'])->name('user_profile.update_basic_info');
     Route::post('user-profile/update-password',[UserProfileController::class,'updatePassword'])->name('user_profile.update_password');
+
+    //Menu
+    Route::get('menu', [MenuController::class, 'index'])->name('menu.index');
+    Route::get('menu/create',[MenuController::class, 'create'])->name('menu.create');
+    Route::post('menu',[MenuController::class,'store'])->name('menu.store');
+    Route::get('menu/{id}',[MenuController::class,'show'])->name('menu.show');
+    Route::get('menu/{id}/edit',[MenuController::class,'edit'])->name('menu.edit');
+    Route::put('menu/{id}/update',[MenuController::class,'update'])->name('menu.update');
+    Route::delete('menu/{id}/destroy',[MenuController::class,'destroy'])->name('menu.destroy');
 
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('is_admin','auth');

@@ -13,7 +13,7 @@
                     <h3 class="card-title">Edit {{ $panel }}</h3>
                 </div>
 
-                {{ Form::model($data['row'], ['route' => [$base_route . 'update', $data['row']->id], 'method' => 'put']) }}
+                {{ Form::model($data['row'], ['route' => [$base_route . 'update', $data['row']->id], 'method' => 'put','id' => 'main_form']) }}
 
                 @include($view_path . 'includes.main_form')
 
@@ -21,5 +21,9 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    @include($view_path.'includes.script')
 @endsection
 

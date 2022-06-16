@@ -14,50 +14,19 @@
                 <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
                     <nav class="mainmenu__nav hidden-xs hidden-sm">
                         <ul class="main__menu">
-                            <li class="drop"><a href="index.html">Home</a></li>
-                            <li class="drop"><a href="portfolio-card-box-2.html">portfolio</a>
-                                <ul class="dropdown">
-                                    <li><a href="portfolio-card-box-2.html">portfolio</a></li>
-                                    <li><a href="single-portfolio.html">Single portfolio</a></li>
-                                </ul>
-                            </li>
-                            <li class="drop"><a href="blog.html">Blog</a>
-                                <ul class="dropdown">
-                                    <li><a href="blog.html">blog 3 column</a></li>
-                                    <li><a href="blog-details.html">Blog details</a></li>
-                                </ul>
-                            </li>
-                            <li class="drop"><a href="shop.html">Shop</a>
-                                <ul class="dropdown mega_dropdown">
-                                    <!-- Start Single Mega MEnu -->
-                                    <li><a class="mega__title" href="shop.html">shop layout</a>
-                                        <ul class="mega__item">
-                                            <li><a href="shop.html">default shop</a></li>
+
+                            @foreach( $menus as $menu)
+                                <li class="drop"><a href="{{ route($menu->route) }}">{{ $menu->title }}</a>
+                                    @if($menu->subMenus()->exists())
+                                        <ul class="dropdown">
+                                            @foreach($menu->subMenus as $sub_menu)
+                                                <li><a href="portfolio-card-box-2.html">{{ $sub_menu->title }}</a></li>
+                                            @endforeach
                                         </ul>
-                                    </li>
-                                    <!-- End Single Mega MEnu -->
-                                    <!-- Start Single Mega MEnu -->
-                                    <li><a class="mega__title" href="shop.html">product details layout</a>
-                                        <ul class="mega__item">
-                                            <li><a href="product-details.html">tab style 1</a></li></li>
-                                        </ul>
-                                    </li>
-                                    <!-- End Single Mega MEnu -->
-                                    <!-- Start Single Mega MEnu -->
-                                    <li>
-                                        <ul class="mega__item">
-                                            <li>
-                                                <div class="mega-item-img">
-                                                    <a href="shop.html">
-                                                        <img src="{{asset('assets/frontend/images/feature-img/3.png')}}" alt="">
-                                                    </a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <!-- End Single Mega MEnu -->
-                                </ul>
-                            </li>
+                                    @endif
+                                </li>
+                            @endforeach
+
                             <li class="drop"><a href="#">pages</a>
                                 <ul class="dropdown">
                                     <li><a href="about.html">about</a></li>
@@ -76,7 +45,6 @@
                                     <li><a href="login-register.html">login & register</a></li>
                                 </ul>
                             </li>
-                            <li><a href="contact.html">contact</a></li>
                         </ul>
                     </nav>
                     <div class="mobile-menu clearfix visible-xs visible-sm">

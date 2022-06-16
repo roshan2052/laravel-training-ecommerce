@@ -26,7 +26,7 @@ class SettingController extends BackendBaseController
     public function commonData(){
         $data = [];
         $data['shipping_types'] = ['Flat','Percentage','Free'];
-        
+
         return $data;
     }
 
@@ -57,7 +57,7 @@ class SettingController extends BackendBaseController
         //     session()->flash('error_message','Something went wrong!');
         // }
 
-        return redirect()->route($this->base_route.'edit',$setting->id);
+        return response()->json(['url' => $this->base_route.'edit',$setting->id]);
     }
 
 
@@ -81,7 +81,8 @@ class SettingController extends BackendBaseController
         catch(\Exception $e){
             session()->flash('error_message','Something went wrong!');
         }
-        return back();
+        return response()->json(['url' => route($this->base_route.'edit', $data['row']->id) ]);
+
     }
 
 

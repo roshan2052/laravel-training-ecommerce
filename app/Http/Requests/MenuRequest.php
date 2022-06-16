@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SettingRequest extends FormRequest
+class MenuRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,26 +23,17 @@ class SettingRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
-            'name'          => 'required|string|max:255',
-            'address'       => 'required|string|max:255',
-            'email'         => 'required|string|max:255|email',
-            'phone'         => 'required|integer',
+        return [
+            'title'         => 'required|string|max:191',
+            'rank'          => 'required|integer',
         ];
 
-        if(request('shipping_type') == 0 || request('shipping_type') == 1){
-            $rules['value'] = 'required';
-        };
-
-        return $rules;
     }
-
 
     public function messages()
     {
         return [
-
+            '*.required' => 'Please enter :attribute',
         ];
     }
-
 }

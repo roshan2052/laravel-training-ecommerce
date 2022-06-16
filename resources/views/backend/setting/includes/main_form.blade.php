@@ -78,12 +78,12 @@
     <div class="form-group row mb-3">
         {{ Form::label('shipping_type', 'Shipping Type', ['class' => 'col-3 col-form-label']) }}
         <div class="col-9">
-            {{ Form::select('shipping_type', $data['shipping_types'], null, ['class' => 'form-control', 'id' => 'shipping_type', 'placeholder' => 'Shipping Type']) }}
+            {{ Form::select('shipping_type', $data['shipping_types'], null, ['class' => 'form-control', 'id' => 'shipping_type', 'placeholder' => 'Select Shipping Type']) }}
             @include('backend.includes.validation_error_message',['fieldname' => 'shipping_type'])
         </div>
     </div>
 
-    <div class="form-group row mb-3" style="display:none">
+    <div class="form-group row mb-3 shipping_value">
         {{ Form::label('value', 'Value', ['class' => 'col-3 col-form-label']) }}
         <div class="col-9">
             {{ Form::number('value', null, ['class' => 'form-control', 'id' => 'value', 'placeholder' => 'Value']) }}

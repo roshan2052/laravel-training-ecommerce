@@ -12,7 +12,9 @@ class BackendBaseController extends Controller
             $view->with('panel',$this->panel);
             $view->with('view_path',$this->view_path);
             $view->with('base_route',$this->base_route);
-            $view->with('img_path',$this->img_path);
+            if(isset($this->img_path)){
+                $view->with('img_path',$this->img_path);
+            }
         });
         return $viewPath;
     }

@@ -218,13 +218,13 @@
                                                 <td>
                                                     <ul id="shipping_method">
                                                         <li>
-                                                            <input type="radio" name="shipping" value="flat">
+                                                            <input type="radio" name="shipping" value="flat" class="shipping_type">
                                                             <label>
                                                                 Flat Rate: <span class="amount">Rs. 50.00</span>
                                                             </label>
                                                         </li>
                                                         <li>
-                                                            <input type="radio" name="shipping" value="free" checked>
+                                                            <input type="radio" name="shipping" value="free" class="shipping_type" checked>
                                                             <label>
                                                                 Free Shipping
                                                             </label>
@@ -254,4 +254,27 @@
         </div>
     </div>
 @endsection
+
+@section('js')
+<script>
+    $( document ).ready(function() {
+
+        $('.shipping_type').change(function(){
+            let shipping_type = $(this).val();
+            if(shipping_type == 'flat'){
+                $('.amount').html(100);
+
+            }
+        });
+
+    });
+
+</script>
+
+
+@endsection
+
+
+
+
 
