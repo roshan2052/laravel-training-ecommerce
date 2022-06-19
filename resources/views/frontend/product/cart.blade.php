@@ -173,6 +173,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @auth
                                     @forelse(auth()->user()->carts as $cart)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
@@ -185,9 +186,14 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6">Cart is empty</td>
+                                            <td colspan="7">Your cart is empty</td>
                                         </tr>
                                     @endforelse
+                                    @else
+                                        <tr>
+                                            <td colspan="7">Your cart is empty</td>
+                                        </tr>
+                                    @endauth
                                 </tbody>
                             </table>
                         </div>
@@ -211,7 +217,7 @@
                                         <tbody>
                                             <tr class="cart-subtotal">
                                                 <th>Subtotal</th>
-                                                <td><span class="amount">Rs. {{ auth()->user()->carts()->sum('grand_total') }}</span></td>
+                                                <td><span class="amount">Rs. @auth {{ auth()->user()->carts()->sum('grand_total') }} @else 0 @endauth</span></td>
                                             </tr>
                                             <tr class="shipping">
                                                 <th>Shipping</th>
@@ -237,7 +243,7 @@
                                             <tr class="order-total">
                                                 <th>Total</th>
                                                 <td>
-                                                    <strong><span class="amount">Rs. {{ auth()->user()->carts()->sum('grand_total') }}</span></strong>
+                                                    <strong><span class="amount">Rs. @auth {{ auth()->user()->carts()->sum('grand_total') }} @else 0 @endauth</span></strong>
                                                 </td>
                                             </tr>
                                         </tbody>

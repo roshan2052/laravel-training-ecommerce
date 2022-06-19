@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Frontend\Auth\LoginController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProductController;
@@ -113,14 +114,18 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
+// user login
+Route::get('user/login', [LoginController::class, 'showLoginForm'])->name('user.login');
+Route::post('user/login', [LoginController::class, 'login'])->name('user.login');
+
 
 Route::get('lang/{lang}', [App\Http\Controllers\LanguageController::class, 'changeLang'])->name('lang.change');
 
 Route::get('/', [HomeController::class, 'index'])->name('frontend.index');
 
-Route::post('product/add-to-cart', [HomeController::class, 'addToCart'])->name('product.add_to_cart')->middleware('auth');
+Route::post('product/add-to-cart', [HomeController::class, 'addToCart'])->name('product.add_to_cart')->middleware('customer_auth');
 
-Route::get('product/cart', [HomeController::class, 'cart'])->name('product.cart')->middleware('auth');
+Route::get('product/cart', [HomeController::class, 'cart'])->name('product.cart');
 
 Route::get('product/{slug}', [HomeController::class, 'productDetails'])->name('product_details');
 

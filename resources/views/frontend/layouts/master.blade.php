@@ -135,8 +135,6 @@
         <!-- END Modal -->
     </div>
 
-    @include('frontend.includes.login')
-
     <!-- END QUICKVIEW PRODUCT -->
     <!-- Placed js at the end of the document so the pages load faster -->
 

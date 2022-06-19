@@ -95,7 +95,7 @@
                                     Logout
                                 </a>
                             @else
-                                <a href="#" data-toggle="modal" data-target="#loginModal"><span class="ti-user"></span></a>
+                                <a href="{{ route('user.login') }}"><span class="ti-user"></span></a>
                             @endauth
                         </li>
                         <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
