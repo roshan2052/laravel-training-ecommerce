@@ -179,10 +179,13 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td class="product-thumbnail"><a href="#"><img src="images/product/4.png" alt="product img" /></a></td>
                                             <td class="product-name"><a href="#">{{ $cart->product->name }}</a></td>
-                                            <td class="product-price"><span class="amount">{{ $cart->price }}</span></td>
-                                            <td class="product-quantity"><input type="number" value="{{ $cart->quantity }}" /></td>
-                                            <td class="product-subtotal">{{  $cart->grand_total }}</td>
-                                            <td class="product-remove"><a href="#">X</a></td>
+                                            <td class="product-price"><input type="number" class="price" value="{{ $cart->price }}" disabled/></td>
+                                            <td class="product-quantity"><input type="number" class="quantity" value="{{ $cart->quantity }}" min="1" max="{{ $cart->product->stock }}"/></td>
+                                            <td class="product-subtotal"><input type="number" class="grand_total" value="{{ $cart->grand_total }}" disabled/></td>
+                                            <td class="product-remove">
+                                                <a class="remove_item" href="#">X</a>
+                                                <input type="hidden" class="product" value="{{ $cart->product->id }}" disabled/>
+                                            </td>
                                         </tr>
                                     @empty
                                         <tr>
@@ -269,8 +272,36 @@
             let shipping_type = $(this).val();
             if(shipping_type == 'flat'){
                 $('.amount').html(100);
-
             }
+        });
+
+        $('.quantity').on('change keyup',function(){
+            let quantity = $(this).val();
+            let price =  $(this).parents('tr').find('.price').val();
+            let grand_total_element = $(this).parents('tr').find('.grand_total');
+            let total = quantity * price;
+            grand_total_element.val(total);
+
+
+        });
+
+        // script
+        $('.remove_item').on('click', function() {
+
+            let product_id = $(this).next().val();
+
+            $.ajax({
+                url: "{{route('product.delete_cart')}}",
+                data: {_token: "{{csrf_token()}}", product_id: product_id},
+                dataType: "JSON",
+                method: "POST",
+                success: function(resp) {
+
+                    // $(this).parents('tr').remove();
+
+                },
+            });
+
         });
 
     });

@@ -70,4 +70,17 @@ class HomeController extends Controller
         return to_route('product.cart');
     }
 
+    public function deleteCart(){
+
+        $cart = Cart::where('user_id',auth()->id())
+            ->where('product_id',request('product_id'))
+            ->first();
+
+        $cart->update(['quan']);
+
+        $grand_total = auth()->user()->carts()->sum('grand_total');
+
+        return response()->json(['grand_total' => $grand_total]);
+
+    }
 }

@@ -131,3 +131,4 @@ Route::get('product/{slug}', [HomeController::class, 'productDetails'])->name('p
 
 Route::post('product/store-review', [HomeController::class, 'storeReview'])->name('product.store_review');
 
+Route::post('product/delete-cart', [HomeController::class, 'deleteCart'])->name('product.delete_cart');
