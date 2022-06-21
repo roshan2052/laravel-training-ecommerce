@@ -220,7 +220,15 @@
                                         <tbody>
                                             <tr class="cart-subtotal">
                                                 <th>Subtotal</th>
-                                                <td><span class="amount">Rs. @auth {{ auth()->user()->carts()->sum('grand_total') }} @else 0 @endauth</span></td>
+                                                <td>
+                                                    <span>
+                                                        @auth
+                                                            Rs. <input type="number" class="sub_total" value="{{ auth()->user()->carts()->sum('grand_total') }}" disabled/>
+                                                        @else
+                                                            Rs.0
+                                                        @endauth
+                                                    </span>
+                                                </td>
                                             </tr>
                                             <tr class="shipping">
                                                 <th>Shipping</th>
@@ -282,11 +290,25 @@
             let total = quantity * price;
             grand_total_element.val(total);
 
+            let product_id =  $(this).parents('tr').find('.product').val();
 
+            $.ajax({
+                url: "{{route('product.update_cart')}}",
+                data: {_token: "{{csrf_token()}}", product_id: product_id, quantity : quantity},
+                dataType: "JSON",
+                method: "POST",
+                success: function(resp) {
+
+                    $('.sub_total').val(resp.grand_total);
+
+                },
+            });
         });
 
         // script
-        $('.remove_item').on('click', function() {
+        $('.remove_item').on('click', function(e) {
+            e.preventDefault();
+            let row =  $(this);
 
             let product_id = $(this).next().val();
 
@@ -297,12 +319,15 @@
                 method: "POST",
                 success: function(resp) {
 
-                    // $(this).parents('tr').remove();
+                    row.parents('tr').remove();
+
+                    $('.sub_total').val(resp.grand_total);
 
                 },
             });
-
         });
+
+
 
     });
 

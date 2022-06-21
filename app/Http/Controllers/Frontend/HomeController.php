@@ -76,11 +76,29 @@ class HomeController extends Controller
             ->where('product_id',request('product_id'))
             ->first();
 
-        $cart->update(['quan']);
+        $cart->delete();
 
         $grand_total = auth()->user()->carts()->sum('grand_total');
 
         return response()->json(['grand_total' => $grand_total]);
+
+    }
+
+    public function updateCart(){
+
+        $cart = Cart::where('user_id',auth()->id())
+            ->where('product_id',request('product_id'))
+            ->first();
+
+        $grand_total =  $cart->product->price * request('quantity');
+
+        $cart->update(['quantity' => request('quantity')]);
+
+        $cart->update(['grand_total' => $grand_total]);
+
+        $sub_total = auth()->user()->carts()->sum('grand_total');
+
+        return response()->json(['grand_total' => $sub_total]);
 
     }
 }
