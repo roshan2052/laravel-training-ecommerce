@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\Frontend\Auth\LoginController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\MenuController;
@@ -109,6 +110,15 @@ Route::middleware(['web','auth','localization','is_admin'])->prefix('backend/')-
     Route::put('menu/{id}/update',[MenuController::class,'update'])->name('menu.update');
     Route::delete('menu/{id}/destroy',[MenuController::class,'destroy'])->name('menu.destroy');
 
+    //Coupon
+    Route::get('coupon', [CouponController::class, 'index'])->name('coupon.index');
+    Route::get('coupon/create',[CouponController::class, 'create'])->name('coupon.create');
+    Route::post('coupon',[CouponController::class,'store'])->name('coupon.store');
+    Route::get('coupon/{id}',[CouponController::class,'show'])->name('coupon.show');
+    Route::get('coupon/{id}/edit',[CouponController::class,'edit'])->name('coupon.edit');
+    Route::put('coupon/{id}/update',[CouponController::class,'update'])->name('coupon.update');
+    Route::delete('coupon/{id}/destroy',[CouponController::class,'destroy'])->name('coupon.destroy');
+
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('is_admin','auth');
 
@@ -134,3 +144,6 @@ Route::post('product/store-review', [HomeController::class, 'storeReview'])->nam
 Route::post('product/delete-cart', [HomeController::class, 'deleteCart'])->name('product.delete_cart');
 
 Route::post('product/update-cart', [HomeController::class, 'updateCart'])->name('product.update_cart');
+
+Route::post('cart/apply-coupon', [HomeController::class, 'applyCoupon'])->name('cart.apply_coupon');
+

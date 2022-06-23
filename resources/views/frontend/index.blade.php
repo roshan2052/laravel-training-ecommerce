@@ -212,7 +212,7 @@
             </div>
         </section>
         <!-- End Feature Product -->
-        <!-- Start Our Product Area -->  
+        <!-- Start Our Product Area -->
 
         @foreach($data['categories'] as $category)
         <section class="htc__product__area ptb--50 bg__white">

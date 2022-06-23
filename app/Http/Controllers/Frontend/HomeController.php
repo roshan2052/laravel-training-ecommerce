@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\ProductReview;
 use Illuminate\Http\Request;
@@ -100,5 +101,22 @@ class HomeController extends Controller
 
         return response()->json(['grand_total' => $sub_total]);
 
+    }
+
+    public function applyCoupon(){
+
+        $coupon = Coupon::query()
+            ->where('start_date','<=', now())
+            ->where('expire_date','>', now())
+            ->where('code',request('code'))
+            ->first();
+
+        if( $coupon){
+            auth()->user()->update(['coupon_id' => $coupon->id]);
+            session()->flash('success_message','Coupon has been applied');
+        } else {
+            session()->flash('error_message','Coupon is not valid!');
+        }
+        return back();
     }
 }
