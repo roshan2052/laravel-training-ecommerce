@@ -225,9 +225,6 @@
                                             <th>Subtotal</th>
                                             @php
                                                 $grand_total = auth()->user()->carts()->sum('grand_total');
-                                                if(auth()->user()->coupon()->exists()){
-                                                    $grand_total = $grand_total - auth()->user()->coupon->discount_amount;
-                                                }
                                             @endphp
                                             <td>
                                                 <span>
@@ -239,6 +236,12 @@
                                                 </span>
                                             </td>
                                         </tr>
+                                        @if(auth()->user()->coupon()->exists())
+                                            <tr>
+                                                <th>Coupoun</th>
+                                                <th>{{ $discount_amount = auth()->user()->coupon->discount_amount }}</th>
+                                            </tr>
+                                        @endif
                                         <tr class="shipping">
                                             <th>Shipping</th>
                                             <td>
@@ -263,7 +266,9 @@
                                         <tr class="order-total">
                                             <th>Total</th>
                                             <td>
-                                                <strong><span class="amount">Rs. @auth {{ auth()->user()->carts()->sum('grand_total') }} @else 0 @endauth</span></strong>
+                                                <strong><input type="number" name="total_amount" id="total_amount" value={{ $grand_total - $discount_amount ?? 0  }} /></strong>
+
+                                                {{-- <strong><span class="amount">Rs. @auth {{ $grand_total - $discount_amount ?? 0 }} @else 0 @endauth</span></strong> --}}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -286,8 +291,13 @@
 
         $('.shipping_type').change(function(){
             let shipping_type = $(this).val();
+            let total_amount = parseInt($('#total_amount').val());
+            let shipping_charge = 50;
             if(shipping_type == 'flat'){
-                $('.amount').html(100);
+                $('#total_amount').val(total_amount + shipping_charge);
+            }
+            else{
+                $('#total_amount').val(total_amount - shipping_charge);
             }
         });
 
