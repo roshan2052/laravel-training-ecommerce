@@ -124,26 +124,24 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
-// user login
+// User Login
 Route::get('user/login', [LoginController::class, 'showLoginForm'])->name('user.login');
 Route::post('user/login', [LoginController::class, 'login'])->name('user.login');
-
-
+//Localization
 Route::get('lang/{lang}', [App\Http\Controllers\LanguageController::class, 'changeLang'])->name('lang.change');
 
+Route::middleware(['web','customer_auth'])->group(function () {
+    Route::post('product/add-to-cart', [HomeController::class, 'addToCart'])->name('product.add_to_cart');
+    Route::get('product/cart', [HomeController::class, 'cart'])->name('product.cart');
+    Route::post('product/store-review', [HomeController::class, 'storeReview'])->name('product.store_review');
+    Route::post('product/delete-cart', [HomeController::class, 'deleteCart'])->name('product.delete_cart');
+    Route::post('product/update-cart', [HomeController::class, 'updateCart'])->name('product.update_cart');
+    Route::post('cart/apply-coupon', [HomeController::class, 'applyCoupon'])->name('cart.apply_coupon');
+    Route::get('checkout', [HomeController::class, 'checkout'])->name('frontend.checkout');
+
+});
+
 Route::get('/', [HomeController::class, 'index'])->name('frontend.index');
-
-Route::post('product/add-to-cart', [HomeController::class, 'addToCart'])->name('product.add_to_cart')->middleware('customer_auth');
-
-Route::get('product/cart', [HomeController::class, 'cart'])->name('product.cart');
-
 Route::get('product/{slug}', [HomeController::class, 'productDetails'])->name('product_details');
-
-Route::post('product/store-review', [HomeController::class, 'storeReview'])->name('product.store_review');
-
-Route::post('product/delete-cart', [HomeController::class, 'deleteCart'])->name('product.delete_cart');
-
-Route::post('product/update-cart', [HomeController::class, 'updateCart'])->name('product.update_cart');
-
-Route::post('cart/apply-coupon', [HomeController::class, 'applyCoupon'])->name('cart.apply_coupon');
+Route::get('/{cat_slug}/{subcat_slug}/products', [HomeController::class, 'productBySubcategory'])->name('product_by_subcategory');
 

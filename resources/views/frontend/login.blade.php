@@ -163,11 +163,6 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
 
-                            <div class="tabs__checkbox">
-                                <input type="checkbox">
-                                <span> Remember me</span>
-                                <span class="forget"><a href="{{ route('password.request') }}">Forgot Pasword?</a></span>
-                            </div>
                             <div class="htc__login__btn mt--30">
                                 <button type="submit" class="btn btn-primary btn-lg">
                                     {{ __('Login') }}

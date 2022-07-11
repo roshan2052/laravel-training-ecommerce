@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="body__overlay"></div>
+
+    @include('backend.includes.flash_message')
+
     <!-- Start Offset Wrapper -->
     <div class="offset__wrapper">
         <!-- Start Search Popap -->
@@ -186,7 +189,11 @@
                         <div class="product__big__images">
                             <div class="portfolio-full-image tab-content">
                                 <div role="tabpanel" class="tab-pane fade in active product-video-position" id="img-tab-1">
-                                    <img src="{{ asset('assets/frontend/images/product-details/big-img/10.jpg') }}" alt="full-image">
+                                    @if($product->latestImage)
+                                        <img src="{{ asset('images/product/'.$product->latestImage->image) }}" alt="full-image">
+                                    @else
+                                        <img src="{{ asset('assets/frontend/images/product-details/big-img/10.jpg') }}" alt="full-image">
+                                    @endif
                                     <div class="product-video">
                                         <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
                                             <i class="zmdi zmdi-videocam"></i> View Video
@@ -262,7 +269,7 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <form method="post" action="{{ route('product.add_to_cart') }}">
+                        <form method="post" action="{{ route('product.add_to_cart') }}" id="add-to-cart">
                             @csrf
                             <div class="product-action-wrap">
                                 <div class="prodict-statas"><span>Quantity :</span></div>
@@ -276,7 +283,7 @@
                                 </div>
                             </div>
                             <ul class="pro__dtl__btn">
-                                <li class="buy__now__btn"><button type="submit">buy now</a></li>
+                                <li class="buy__now__btn"><a href="#" onclick="event.preventDefault();document.getElementById('add-to-cart').submit();">buy now</a></li>
                                 <li><a href="#"><span class="ti-heart"></span></a></li>
                                 <li><a href="#"><span class="ti-email"></span></a></li>
                             </ul>

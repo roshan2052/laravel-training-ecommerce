@@ -2,8 +2,12 @@
 
 @section('content')
     <div class="body__overlay"></div>
+
     <!-- Start Offset Wrapper -->
     <div class="offset__wrapper">
+
+        @include('backend.includes.flash_message')
+
         <!-- Start Search Popap -->
         <div class="search__area">
             <div class="container" >
@@ -176,7 +180,7 @@
                                 @forelse(auth()->user()->carts as $cart)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td class="product-thumbnail"><a href="#"><img src="images/product/4.png" alt="product img" /></a></td>
+                                        <td class="product-thumbnail"><a href="#"><img src="{{ asset('images/product/'.$cart->product->latestImage->image) }}" alt="product img" /></a></td>
                                         <td class="product-name"><a href="#">{{ $cart->product->name }}</a></td>
                                         <td class="product-price"><input type="number" class="price" value="{{ $cart->price }}" disabled/></td>
                                         <td class="product-quantity"><input type="number" class="quantity" value="{{ $cart->quantity }}" min="1" max="{{ $cart->product->stock }}"/></td>
@@ -201,16 +205,12 @@
                     </div>
                     <div class="row">
                         <div class="col-md-8 col-sm-7 col-xs-12">
-                            <div class="buttons-cart">
-                                <input type="submit" value="Update Cart" />
-                                <a href="#">Continue Shopping</a>
-                            </div>
-
                             <div class="coupon">
                                 <h3>Coupon</h3>
-                                <form method="POST" action="{{ route('cart.apply_coupon') }}">
+                                <form method="POST" action="{{ route('cart.apply_coupon') }}" id="apply_coupon_form">
                                     @csrf
                                     <p>Enter your coupon code if you have one.</p>
+                                    <span id="code"></span>
                                     <input type="text" name="code" placeholder="Coupon code" />
                                     <button type="submit" class="btn btn-success btn-md">Apply Coupon</button>
                                 </form>
@@ -226,20 +226,13 @@
                                             @php
                                                 $grand_total = auth()->user()->carts()->sum('grand_total');
                                             @endphp
-                                            <td>
-                                                <span>
-                                                    @auth
-                                                        Rs. <input type="number" class="sub_total" value="{{ $grand_total }}" disabled/>
-                                                    @else
-                                                        Rs.0
-                                                    @endauth
-                                                </span>
-                                            </td>
+                                            <td><b>Rs.</b><span class="amount sub_total">@auth{{ $grand_total }}  @else Rs.0 @endauth</span></td>
                                         </tr>
-                                        @if(auth()->user()->coupon()->exists())
+
+                                        @if(auth()->user()->isValidCoupon)
                                             <tr>
                                                 <th>Coupoun</th>
-                                                <th>{{ $discount_amount = auth()->user()->coupon->discount_amount }}</th>
+                                                <th>Rs. {{ $discount_amount = auth()->user()->coupon->discount_amount }}</th>
                                             </tr>
                                         @endif
                                         <tr class="shipping">
@@ -266,15 +259,15 @@
                                         <tr class="order-total">
                                             <th>Total</th>
                                             <td>
-                                                <strong><input type="number" name="total_amount" id="total_amount" value={{ $grand_total - $discount_amount ?? 0  }} /></strong>
-
-                                                {{-- <strong><span class="amount">Rs. @auth {{ $grand_total - $discount_amount ?? 0 }} @else 0 @endauth</span></strong> --}}
+                                                <strong><b>Rs.</b>
+                                                    <span class="amount" id="total_amount">@auth {{ $grand_total - ($discount_amount ?? 0) }} @else 0 @endauth</span>
+                                                </strong>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                                 <div class="wc-proceed-to-checkout">
-                                    <a href="checkout.html">Proceed to Checkout</a>
+                                    <a href="{{ route('frontend.checkout') }}">Proceed to Checkout</a>
                                 </div>
                             </div>
                         </div>
@@ -289,15 +282,15 @@
 <script>
     $( document ).ready(function() {
 
+        let shipping_charge = 50;
         $('.shipping_type').change(function(){
             let shipping_type = $(this).val();
-            let total_amount = parseInt($('#total_amount').val());
-            let shipping_charge = 50;
+            let total_amount = parseInt($('#total_amount').text());
             if(shipping_type == 'flat'){
-                $('#total_amount').val(total_amount + shipping_charge);
+                $('#total_amount').text(total_amount + shipping_charge);
             }
             else{
-                $('#total_amount').val(total_amount - shipping_charge);
+                $('#total_amount').text(total_amount - shipping_charge);
             }
         });
 
@@ -316,9 +309,9 @@
                 dataType: "JSON",
                 method: "POST",
                 success: function(resp) {
-
-                    $('.sub_total').val(resp.grand_total);
-
+                    $('.sub_total').text(resp.grand_total);
+                    let total_amount = resp.grand_total - shipping_charge;
+                    $('#total_amount').text(total_amount);
                 },
             });
         });
@@ -326,26 +319,55 @@
         // script
         $('.remove_item').on('click', function(e) {
             e.preventDefault();
-            let row =  $(this);
+            if (confirm('Are You Sure ?')) {
+                let row =  $(this);
+                let product_id = $(this).next().val();
 
-            let product_id = $(this).next().val();
-
-            $.ajax({
-                url: "{{route('product.delete_cart')}}",
-                data: {_token: "{{csrf_token()}}", product_id: product_id},
-                dataType: "JSON",
-                method: "POST",
-                success: function(resp) {
-
-                    row.parents('tr').remove();
-
-                    $('.sub_total').val(resp.grand_total);
-
-                },
-            });
+                $.ajax({
+                    url: "{{route('product.delete_cart')}}",
+                    data: {_token: "{{csrf_token()}}", product_id: product_id},
+                    dataType: "JSON",
+                    method: "POST",
+                    success: function(resp) {
+                        row.parents('tr').remove();
+                        $('.sub_total').text(resp.grand_total);
+                    },
+                });
+            }
         });
 
 
+        //form submit
+        $('form#apply_coupon_form').on('submit', function(event) {
+        event.preventDefault();
+
+        let route = $(this).attr('action');
+        let method = $(this).attr('method');
+        let data = new FormData(this);
+
+        $.ajax({
+            url: route,
+            data: data,
+            method: method,
+            dataType: "JSON",
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(res) {
+                window.location.href = res.url;
+            },
+            error: function(err) {
+                $('span.text-danger').remove();
+                if (err.responseJSON.errors) {
+                    $.each(err.responseJSON.errors, function(key, value) {
+                        let splitted_key = key.split('.');
+                        $('#' + key).after("<span class='text-danger'>" + value + "<br></span>");
+                    });
+                }
+            },
+        });
+
+        });
 
     });
 

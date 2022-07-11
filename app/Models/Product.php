@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends BackendBase
 {
-    use FilterDataTrait;
-
     protected $fillable =['category_id','sub_category_id','name','slug','code','short_description','description','price','quantity','stock','feature_key','flash_key','status','created_by','updated_by'];
 
     public function category(){
@@ -29,6 +27,10 @@ class Product extends BackendBase
 
     public function productImageDetails(){
         return $this->hasMany(ProductImageDetail::class);
+    }
+
+    public function latestImage(){
+        return $this->hasOne(ProductImageDetail::class)->latest();
     }
 
     public function productReviews(){

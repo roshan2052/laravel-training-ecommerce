@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
                     <div class="logo">
-                        <a href="index.html">
+                        <a href="/">
                             <img src="{{asset('assets/frontend/images/logo/logo.png')}}" alt="logo">
                         </a>
                     </div>
@@ -98,7 +98,7 @@
                                 <a href="{{ route('user.login') }}"><span class="ti-user"></span></a>
                             @endauth
                         </li>
-                        <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
+                        <li><a href="{{ route('product.cart') }}"><span class="ti-shopping-cart"></span></a></li>
                         <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>
                     </ul>
                 </div>

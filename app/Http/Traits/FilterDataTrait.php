@@ -9,7 +9,7 @@ trait FilterDataTrait
     protected static function booted()
     {
         static::addGlobalScope('FilterById', function (Builder $builder) {
-            $builder->where('id', '>', 5);
+            $builder->where('id', '>', 0);
         });
     }
 

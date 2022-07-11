@@ -58,4 +58,10 @@ class User extends Authenticatable
     public function coupon(){
         return $this->belongsTo(Coupon::class);
     }
+
+    public function isValidCoupon(){
+        return $this->belongsTo(Coupon::class,'coupon_id')
+            ->where('start_date','<=', now())
+            ->where('expire_date','>', now());
+    }
 }

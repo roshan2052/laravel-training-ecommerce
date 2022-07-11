@@ -190,7 +190,7 @@
                                         <div class="category-menu-dropdown">{{ $category->sub_categories_count }}
                                             @foreach ($category->subCategories as $sub_category)
                                             <div class="category-part-1 category-common mb--30">
-                                                <h4 class="categories-subtitle">{{ $sub_category->name }}</h4>
+                                                <h4><a href="{{ route('product_by_subcategory',[$category->slug, $sub_category->slug]) }}">{{ $sub_category->name }}</a></h4>
                                                 <ul>
                                                     @foreach ($sub_category->products as $product)
                                                     <li><a href="{{ route('product_details',['slug' => $product->slug]) }}">{{ $product->name }}</a></li>
@@ -201,7 +201,6 @@
                                         </div>
                                     </li>
                                     @endforeach
-
                                     <li><a href="#"><img alt="" src="{{asset('assets/frontend/images/icons/thum3.png')}}"> all Accessories</a></li>
                                 </ul>
                             </div>

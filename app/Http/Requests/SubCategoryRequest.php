@@ -26,8 +26,8 @@ class SubCategoryRequest extends FormRequest
         return [
             'category_id'   => 'required|integer',
             'name'          => 'required|string|max:191',
-            'slug'          => 'required|string|max:191|unique:categories,slug,' .$this->id,
-            'rank'          => 'required|integer|min:1|unique:categories,rank,' .$this->id,
+            'slug'          => 'required|string|max:191|unique:sub_categories,slug,' .$this->id,
+            'rank'          => 'required|integer|min:1|unique:sub_categories,rank,' .$this->id,
             'image_field'   => 'nullable|image',
         ];
 
